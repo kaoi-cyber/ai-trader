@@ -234,6 +234,7 @@ td:first-child { font-family: var(--display); font-weight: 700; }
 .chart svg text { font-family: var(--mono); font-size: 12px; fill: var(--muted); }
 .chart svg text.dl { font-family: var(--body); font-size: 13px; font-weight: 600; fill: var(--ink); }
 .chart svg text.buy { font-family: var(--body); font-size: 13px; font-weight: 600; fill: var(--ink); }
+.chart svg text.dl, .chart svg text.buy { paint-order: stroke; stroke: var(--sheet); stroke-width: 5px; stroke-linejoin: round; }
 .tip { position: absolute; pointer-events: none; background: var(--sheet); border: 1px solid var(--rule); border-radius: 6px; padding: 8px 10px; font: 400 13px/1.5 var(--mono); font-variant-numeric: tabular-nums; color: var(--ink); box-shadow: 0 4px 14px rgb(0 0 0 / 0.12); display: none; white-space: nowrap; z-index: 2; }
 .tip .k { display: inline-block; width: 10px; height: 2px; margin-right: 6px; vertical-align: middle; }
 .tip .d { color: var(--muted); }
