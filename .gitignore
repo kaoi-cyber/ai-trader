@@ -10,7 +10,7 @@ __pycache__/
 # Runtime data (your paper portfolio and trade log)
 state-*.json
 state-*.json.tmp
-trades.jsonl
+trades*.jsonl
 
 # Not part of this project
 chain-trader/

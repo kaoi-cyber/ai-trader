@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Trader Demo Session</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a single trading-desk column. Account strip, then the session in order, then the order blotter, research and the agent's notes. */
+:root {
+  color-scheme: light;
+  --paper: #f5f7fa;
+  --sheet: #ffffff;
+  --ink: #15202b;
+  --muted: #5a6878;
+  --rule: #dbe2ea;
+  --accent: #2346c8;
+  --accent-soft: #e6ecfb;
+  --good: #11704a;
+  --good-soft: #e2f3ea;
+  --block: #a2400f;
+  --block-soft: #fbeadf;
+  --display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #0f151c;
+    --sheet: #161e27;
+    --ink: #e4eaf1;
+    --muted: #93a2b3;
+    --rule: #2a3542;
+    --accent: #8ea6ff;
+    --accent-soft: #1d2847;
+    --good: #5fd39c;
+    --good-soft: #143326;
+    --block: #f29a6b;
+    --block-soft: #3a2216;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #0f151c;
+  --sheet: #161e27;
+  --ink: #e4eaf1;
+  --muted: #93a2b3;
+  --rule: #2a3542;
+  --accent: #8ea6ff;
+  --accent-soft: #1d2847;
+  --good: #5fd39c;
+  --good-soft: #143326;
+  --block: #f29a6b;
+  --block-soft: #3a2216;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 400 17px/1.55 var(--body);
+  padding-inline: 20px;
+  padding-block: 40px 56px;
+}
+.wrap { max-width: 920px; margin: 0 auto; display: flex; flex-direction: column; gap: 44px; }
+h1, h2 { font-family: var(--display); text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(30px, 5vw, 44px); font-weight: 800; letter-spacing: -0.015em; line-height: 1.1; }
+h2 { font-size: 21px; font-weight: 700; letter-spacing: -0.005em; }
+p { margin: 0; }
+.eyebrow, .label {
+  font: 500 12px/1.3 var(--mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.num { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+a { color: var(--accent); }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* Header */
+header { display: flex; flex-direction: column; gap: 12px; }
+.meta { display: flex; flex-wrap: wrap; gap: 8px; }
+.tag {
+  font: 500 13px/1 var(--mono);
+  padding: 7px 10px;
+  border-radius: 4px;
+  background: var(--sheet);
+  border: 1px solid var(--rule);
+  color: var(--muted);
+}
+.tag.closed { color: var(--block); border-color: var(--block); background: var(--block-soft); }
+.lede { max-width: 64ch; color: var(--muted); }
+
+/* Account strip */
+.account {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background: var(--sheet);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+}
+.account > div { padding: 18px 20px; display: flex; flex-direction: column; gap: 6px; border-left: 1px solid var(--rule); }
+.account > div:first-child { border-left: 0; }
+.account .value { font: 500 24px/1.15 var(--mono); font-variant-numeric: tabular-nums; }
+.account .sub { font-size: 14px; color: var(--muted); }
+@media (max-width: 720px) {
+  .account { grid-template-columns: 1fr 1fr; }
+  .account > div:nth-child(3) { border-left: 0; }
+  .account > div:nth-child(n+3) { border-top: 1px solid var(--rule); }
+}
+
+section { display: flex; flex-direction: column; gap: 16px; }
+.section-head { display: flex; flex-direction: column; gap: 4px; }
+.section-head p { color: var(--muted); max-width: 64ch; }
+
+/* Session steps: a real sequence, so it's numbered */
+.steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--rule); border: 1px solid var(--rule); border-radius: 6px; overflow: hidden; }
+.steps li { background: var(--sheet); padding: 16px 18px; display: flex; flex-direction: column; gap: 6px; }
+.steps .n { font: 500 12px/1 var(--mono); color: var(--accent); }
+.steps strong { font-family: var(--display); font-weight: 700; font-size: 16px; }
+.steps span.d { font-size: 15px; color: var(--muted); }
+.steps code { font: 400 13px var(--mono); color: var(--ink); }
+@media (max-width: 720px) { .steps { grid-template-columns: 1fr; } }
+
+/* Order blotter */
+.blotter { display: flex; flex-direction: column; gap: 12px; }
+.ticket {
+  background: var(--sheet);
+  border: 1px solid var(--rule);
+  border-left: 4px solid var(--good);
+  border-radius: 6px;
+  padding: 18px 20px;
+  display: grid;
+  grid-template-columns: 170px 1fr;
+  gap: 14px 24px;
+}
+.ticket.blocked { border-left-color: var(--block); }
+.ticket .left { display: flex; flex-direction: column; gap: 8px; }
+.sym { font: 700 20px/1.1 var(--display); letter-spacing: 0.01em; }
+.order-line { font: 400 14px/1.3 var(--mono); color: var(--muted); font-variant-numeric: tabular-nums; }
+.chip {
+  align-self: flex-start;
+  font: 500 12px/1 var(--mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 6px 8px;
+  border-radius: 3px;
+  color: var(--good);
+  background: var(--good-soft);
+}
+.blocked .chip { color: var(--block); background: var(--block-soft); }
+.ticket .right { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.verdict { font: 500 14px/1.4 var(--mono); }
+.verdict.ok { color: var(--good); }
+.verdict.no { color: var(--block); }
+.why { font-size: 16px; }
+.conf { display: flex; flex-direction: column; gap: 6px; }
+.conf .bar { position: relative; height: 8px; border-radius: 4px; background: var(--paper); border: 1px solid var(--rule); }
+.conf .fill { position: absolute; inset: 0 auto 0 0; border-radius: 4px; background: var(--accent); }
+.conf .min { position: absolute; top: -4px; bottom: -4px; width: 2px; background: var(--ink); left: 60%; }
+.conf .label span { color: var(--ink); }
+@media (max-width: 640px) { .ticket { grid-template-columns: 1fr; } }
+.aside {
+  font-size: 15px;
+  color: var(--muted);
+  padding: 12px 16px;
+  border-radius: 6px;
+  background: var(--accent-soft);
+  max-width: 72ch;
+}
+
+/* Research table */
+.table-wrap { overflow-x: auto; background: var(--sheet); border: 1px solid var(--rule); border-radius: 6px; }
+table { width: 100%; border-collapse: collapse; min-width: 560px; }
+th, td { padding: 12px 16px; text-align: right; border-bottom: 1px solid var(--rule); white-space: nowrap; }
+th { font: 500 12px/1.3 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+th:first-child, td:first-child { text-align: left; }
+tr:last-child td { border-bottom: 0; }
+td { font-family: var(--mono); font-variant-numeric: tabular-nums; font-size: 15px; }
+td:first-child { font-family: var(--display); font-weight: 700; }
+.up { color: var(--good); }
+.down { color: var(--block); }
+
+/* Notes memo */
+.memo {
+  background: var(--sheet);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 20px 22px;
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 12px 20px;
+  font-size: 16px;
+}
+.memo dt { font: 700 15px/1.5 var(--display); }
+.memo dd { margin: 0; }
+@media (max-width: 560px) { .memo { grid-template-columns: 1fr; gap: 4px 0; } .memo dd { margin-bottom: 10px; } }
+
+footer { border-top: 1px solid var(--rule); padding-top: 18px; display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; font-size: 14px; color: var(--muted); }
+</style>
+</head>
+<body>
+<main class="wrap">
+
+  <header>
+    <span class="eyebrow">Paper trading · simulated money</span>
+    <h1>AI Trader Demo Session</h1>
+    <div class="meta">
+      <span class="tag">Sat 10 Oct 2026 · 11:50 New York</span>
+      <span class="tag closed">US stock market closed</span>
+      <span class="tag">Crypto only this session</span>
+    </div>
+    <p class="lede">One full trading cycle on a fresh $10,000 demo account, run by Claude following the same routine as the scheduled tasks. It researched the market, placed three orders, and the risk layer let one through.</p>
+  </header>
+
+  <div class="account" role="group" aria-label="Account after the session">
+    <div><span class="label">Portfolio value</span><span class="value">$9,999.50</span><span class="sub">from $10,000.00 start</span></div>
+    <div><span class="label">Cash</span><span class="value">$9,000.00</span><span class="sub">90% of the account</span></div>
+    <div><span class="label">Bitcoin</span><span class="value">$999.50</span><span class="sub num">0.01205 BTC</span></div>
+    <div><span class="label">Orders</span><span class="value">1 / 3</span><span class="sub">filled · 2 blocked</span></div>
+  </div>
+
+  <section>
+    <div class="section-head">
+      <h2>What happened, in order</h2>
+    </div>
+    <ol class="steps">
+      <li><span class="n">1</span><strong>Briefing</strong><span class="d">Read the account, risk limits and notes with <code>trade.py begin</code>. First cycle, so no notes yet.</span></li>
+      <li><span class="n">2</span><strong>Quotes</strong><span class="d">Pulled live prices for BTC, ETH, SOL, XRP, DOGE and SPY.</span></li>
+      <li><span class="n">3</span><strong>Price history</strong><span class="d">Checked 6-month trends and 50/200-day averages for the three largest coins.</span></li>
+      <li><span class="n">4</span><strong>News</strong><span class="d">Searched for crypto news. Coverage was thin, with no major headlines this week.</span></li>
+      <li><span class="n">5</span><strong>Orders</strong><span class="d">Sent three orders through the risk layer. One filled, two were blocked.</span></li>
+      <li><span class="n">6</span><strong>Notes</strong><span class="d">Wrote its plan for next time: theses, exit levels and a watchlist.</span></li>
+    </ol>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>Order blotter</h2>
+      <p>Each order shows Claude's confidence against the 0.6 minimum (the dark tick), and the risk layer's ruling.</p>
+    </div>
+    <div class="blotter">
+
+      <article class="ticket">
+        <div class="left">
+          <span class="sym">BTC-USD</span>
+          <span class="order-line">BUY $1,000.00</span>
+          <span class="order-line">fill @ 83,018.09</span>
+          <span class="chip">Filled</span>
+        </div>
+        <div class="right">
+          <p class="why">Long-term uptrend intact: price is above the 50-day (80.7k) and 200-day (71.9k) averages after a 3% weekly pullback. Starter position at 10% of the account, leaving room under the 25% crypto cap.</p>
+          <div class="conf">
+            <span class="label">Confidence <span class="num">0.65</span></span>
+            <div class="bar" aria-hidden="true"><div class="fill" style="width:65%"></div><div class="min"></div></div>
+          </div>
+          <p class="verdict ok">Risk layer: approved at full size</p>
+        </div>
+      </article>
+
+      <article class="ticket blocked">
+        <div class="left">
+          <span class="sym">ETH-USD</span>
+          <span class="order-line">BUY $600.00</span>
+          <span class="order-line">at 2,508.75</span>
+          <span class="chip">Blocked</span>
+        </div>
+        <div class="right">
+          <p class="why">Down 7.5% this week and below its 20- and 50-day averages. Momentum is weak, so this was a low-conviction probe.</p>
+          <div class="conf">
+            <span class="label">Confidence <span class="num">0.45</span></span>
+            <div class="bar" aria-hidden="true"><div class="fill" style="width:45%"></div><div class="min"></div></div>
+          </div>
+          <p class="verdict no">Risk layer: confidence 0.45 is below the minimum of 0.6</p>
+        </div>
+      </article>
+
+      <article class="ticket blocked">
+        <div class="left">
+          <span class="sym">SPY</span>
+          <span class="order-line">BUY $1,500.00</span>
+          <span class="order-line">at 778.57</span>
+          <span class="chip">Blocked</span>
+        </div>
+        <div class="right">
+          <p class="why">Core index position: SPY is near its 52-week high and above its 50- and 200-day averages.</p>
+          <div class="conf">
+            <span class="label">Confidence <span class="num">0.70</span></span>
+            <div class="bar" aria-hidden="true"><div class="fill" style="width:70%"></div><div class="min"></div></div>
+          </div>
+          <p class="verdict no">Risk layer: US market is closed, so stocks and ETFs can't be traded now</p>
+        </div>
+      </article>
+
+    </div>
+    <p class="aside">The ETH and SPY orders were sent on purpose to show the risk limits at work. A normal run wouldn't submit orders it expects to be rejected.</p>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>Research snapshot</h2>
+      <p>The data behind the decisions, from Yahoo Finance at the time of the session.</p>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th scope="col">Asset</th><th scope="col">Price</th><th scope="col">5-day</th><th scope="col">vs 50-day avg</th><th scope="col">vs 200-day avg</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Bitcoin</td><td>$82,977</td><td class="down">−3.3%</td><td class="up">+2.8%</td><td class="up">+15.5%</td></tr>
+          <tr><td>Ethereum</td><td>$2,508</td><td class="down">−7.5%</td><td class="down">−1.8%</td><td class="up">+17.7%</td></tr>
+          <tr><td>Solana</td><td>$110.41</td><td class="down">−8.6%</td><td class="up">+2.0%</td><td class="up">+27.5%</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>Notes for the next session</h2>
+      <p>Claude's only memory between runs. The next session starts by reading this.</p>
+    </div>
+    <dl class="memo">
+      <dt>BTC</dt><dd>Starter 10% at ~83k. Add up to 15% if it reclaims the 20-day average (~84.4k). Exit if it closes below the 50-day average (~80.7k).</dd>
+      <dt>ETH</dt><dd>Weak: below its 20- and 50-day averages, −7.5% on the week. Buy on a reclaim of 2,660; ignore below 2,400.</dd>
+      <dt>SOL</dt><dd>−8.6% on the week but above its 50-day average (108.5). Watch 105–108 for an entry.</dd>
+      <dt>SPY</dt><dd>Open a core position (~15%) at Monday's open if it's still above its 50-day average (767).</dd>
+      <dt>Macro</dt><dd>News flow is thin. The main drivers are interest rates, inflation data and ETF flows.</dd>
+    </dl>
+  </section>
+
+  <footer>
+    <span>Simulated money only. Not financial advice.</span>
+    <a href="https://github.com/kaoi-cyber/ai-trader">github.com/kaoi-cyber/ai-trader</a>
+  </footer>
+
+</main>
+</body>
+</html>
