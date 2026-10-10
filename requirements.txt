@@ -1,0 +1,6 @@
+anthropic>=1.12
+yfinance>=1.7
+pydantic>=2
+requests
+# only for the not-yet-wired onchain/ crypto code
+web3>=7.6,<8

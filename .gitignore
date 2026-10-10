@@ -1,0 +1,18 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Secrets and local config
+.env
+.claude/
+
+# Runtime data (your paper portfolio and trade log)
+state-*.json
+state-*.json.tmp
+trades.jsonl
+
+# Not part of this project
+chain-trader/
+bahtshift/
+.DS_Store
