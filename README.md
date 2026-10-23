@@ -5,8 +5,9 @@ decides what to buy and sell across **US stocks, ETFs and crypto**, and places o
 simulated $10,000 account. Every order passes through hard risk limits enforced in code, which
 the AI cannot override.
 
-**[See a live demo session →](https://kaoi-cyber.github.io/ai-trader/)** One full cycle: Claude's research,
-three orders through the risk layer, and the notes it left for its next session.
+**[See the live paper account →](https://kaoi-cyber.github.io/ai-trader/)** US stocks, ETFs and crypto Claude
+is trading, its performance against the S&P 500, every order with Claude's reasoning, and its plan for the
+next session.
 
 > **Paper trading only.** No real money is used. This is an experiment in AI agents, not
 > financial advice, and nothing it produces is a recommendation to buy or sell anything.
