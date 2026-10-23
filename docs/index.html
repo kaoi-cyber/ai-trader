@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AI Trader Demo Session</title>
+<title>AI Trader Paper Account</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -240,149 +240,61 @@ td:first-child { font-family: var(--display); font-weight: 700; }
 .tip .d { color: var(--muted); }
 
 footer { border-top: 1px solid var(--rule); padding-top: 18px; display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; font-size: 14px; color: var(--muted); }
+td small { font: 400 13px var(--body); color: var(--muted); margin-left: 6px; }
+.eyebrow a { color: var(--accent); }
 </style>
+
 </head>
 <body>
 <main class="wrap">
 
   <header>
     <span class="eyebrow">Paper trading · simulated money</span>
-    <h1>AI Trader Demo Session</h1>
+    <h1>AI Trader Paper Account</h1>
     <div class="meta">
-      <span class="tag">Sat 10 Oct 2026 · 11:50 New York</span>
-      <span class="tag closed">US stock market closed</span>
-      <span class="tag">Crypto only this session</span>
+      <span class="tag">Started 15 Oct 2026 with $10,000</span>
+      <span class="tag">Snapshot Fri 23 Oct 2026 · 10:30 New York</span>
+      <span class="tag">US stocks · ETFs · crypto</span>
     </div>
-    <p class="lede">One full trading cycle on a fresh $10,000 demo account, run by Claude following the same routine as the scheduled tasks. It researched the market, placed three orders, and the risk layer let one through.</p>
+    <p class="lede">Claude manages this account on its own, twice each trading day: once after the US market opens and once before it closes. It researches US stocks, ETFs and crypto, places orders through hard risk limits it cannot override, and leaves itself notes for the next session. No real money is involved.</p>
   </header>
 
-  <div class="account" role="group" aria-label="Account after the session">
-    <div><span class="label">Portfolio value</span><span class="value">$9,999.50</span><span class="sub">from $10,000.00 start</span></div>
-    <div><span class="label">Cash</span><span class="value">$9,000.00</span><span class="sub">90% of the account</span></div>
-    <div><span class="label">Bitcoin</span><span class="value">$999.50</span><span class="sub num">0.01205 BTC</span></div>
-    <div><span class="label">Orders</span><span class="value">1 / 3</span><span class="sub">filled · 2 blocked</span></div>
+  <div class="account" role="group" aria-label="Account summary">
+    <div><span class="label">Account value</span><span class="value">$10,020.03</span><span class="sub">+$20.03 · +0.20% since start</span></div>
+    <div><span class="label">All in S&amp;P 500</span><span class="value">$9,850.33</span><span class="sub">−1.50% over the same days</span></div>
+    <div><span class="label">Ahead of S&amp;P 500</span><span class="value">+$169.70</span><span class="sub">+1.7 percentage points</span></div>
+    <div><span class="label">Cash</span><span class="value">$6,100.00</span><span class="sub">61% · 5 holdings</span></div>
   </div>
 
   <section>
     <div class="section-head">
-      <h2>Risk budget</h2>
-      <p>How much of each hard limit the account is using after the session. A full bar means the risk layer will clamp or block further buys.</p>
-    </div>
-    <div class="budget">
-      <div class="row"><span class="name">Bitcoin position</span><div class="track" role="img" aria-label="10.0% of 15% per-position maximum"><div class="used" style="width:66.6%"></div></div><span class="figure"><b>10.0%</b> of 15% max</span></div>
-      <div class="row"><span class="name">All crypto</span><div class="track" role="img" aria-label="10.0% of 25% crypto maximum"><div class="used" style="width:40%"></div></div><span class="figure"><b>10.0%</b> of 25% max</span></div>
-      <div class="row"><span class="name">Trades today</span><div class="track" role="img" aria-label="1 of 10 trades per day"><div class="used" style="width:10%"></div></div><span class="figure"><b>1</b> of 10 max</span></div>
-      <div class="row"><span class="name">Loss today</span><div class="track" role="img" aria-label="0.005% of 3% daily loss limit"><div class="used" style="width:0.2%"></div></div><span class="figure"><b>0.005%</b> of 3% halt</span></div>
-    </div>
-  </section>
-
-  <section>
-    <div class="section-head">
-      <h2>What happened, in order</h2>
-    </div>
-    <ol class="steps">
-      <li><span class="n">1</span><strong>Briefing</strong><span class="d">Read the account, risk limits and notes with <code>trade.py begin</code>. First cycle, so no notes yet.</span></li>
-      <li><span class="n">2</span><strong>Quotes</strong><span class="d">Pulled live prices for BTC, ETH, SOL, XRP, DOGE and SPY.</span></li>
-      <li><span class="n">3</span><strong>Price history</strong><span class="d">Checked 6-month trends and 50/200-day averages for the three largest coins.</span></li>
-      <li><span class="n">4</span><strong>News</strong><span class="d">Searched for crypto news. Coverage was thin, with no major headlines this week.</span></li>
-      <li><span class="n">5</span><strong>Orders</strong><span class="d">Sent three orders through the risk layer. One filled, two were blocked.</span></li>
-      <li><span class="n">6</span><strong>Notes</strong><span class="d">Wrote its plan for next time: theses, exit levels and a watchlist.</span></li>
-    </ol>
-  </section>
-
-  <section>
-    <div class="section-head">
-      <h2>Order blotter</h2>
-      <p>Each order shows Claude's confidence against the 0.6 minimum (the dark tick), and the risk layer's ruling.</p>
-    </div>
-    <div class="blotter">
-
-      <article class="ticket">
-        <div class="left">
-          <span class="sym">BTC-USD</span>
-          <span class="order-line">BUY $1,000.00</span>
-          <span class="order-line">fill @ 83,018.09</span>
-          <span class="chip">Filled</span>
-        </div>
-        <div class="right">
-          <p class="why">Long-term uptrend intact: price is above the 50-day (80.7k) and 200-day (71.9k) averages after a 3% weekly pullback. Starter position at 10% of the account, leaving room under the 25% crypto cap.</p>
-          <div class="conf">
-            <span class="label">Confidence <span class="num">0.65</span></span>
-            <div class="bar" aria-hidden="true"><div class="fill" style="width:65%"></div><div class="min"></div></div>
-          </div>
-          <p class="verdict ok">Risk layer: approved at full size</p>
-        </div>
-      </article>
-
-      <article class="ticket blocked">
-        <div class="left">
-          <span class="sym">ETH-USD</span>
-          <span class="order-line">BUY $600.00</span>
-          <span class="order-line">at 2,508.75</span>
-          <span class="chip">Blocked</span>
-        </div>
-        <div class="right">
-          <p class="why">Down 7.5% this week and below its 20- and 50-day averages. Momentum is weak, so this was a low-conviction probe.</p>
-          <div class="conf">
-            <span class="label">Confidence <span class="num">0.45</span></span>
-            <div class="bar" aria-hidden="true"><div class="fill" style="width:45%"></div><div class="min"></div></div>
-          </div>
-          <p class="verdict no">Risk layer: confidence 0.45 is below the minimum of 0.6</p>
-        </div>
-      </article>
-
-      <article class="ticket blocked">
-        <div class="left">
-          <span class="sym">SPY</span>
-          <span class="order-line">BUY $1,500.00</span>
-          <span class="order-line">at 778.57</span>
-          <span class="chip">Blocked</span>
-        </div>
-        <div class="right">
-          <p class="why">Core index position: SPY is near its 52-week high and above its 50- and 200-day averages.</p>
-          <div class="conf">
-            <span class="label">Confidence <span class="num">0.70</span></span>
-            <div class="bar" aria-hidden="true"><div class="fill" style="width:70%"></div><div class="min"></div></div>
-          </div>
-          <p class="verdict no">Risk layer: US market is closed, so stocks and ETFs can't be traded now</p>
-        </div>
-      </article>
-
-    </div>
-    <p class="aside">The ETH and SPY orders were sent on purpose to show the risk limits at work. A normal run wouldn't submit orders it expects to be rejected.</p>
-  </section>
-
-  <section>
-    <div class="section-head">
-      <h2>Six months of prices</h2>
-      <p>Daily closes with the 50- and 200-day moving averages Claude compared against. Hover a chart to read exact values.</p>
+      <h2>Account vs the S&amp;P 500</h2>
+      <p>End-of-day value of the account, against the same $10,000 put entirely into SPY (the S&amp;P 500 fund) at the account's first SPY buy. The last point is live. Hover to read values.</p>
     </div>
     <div class="legend" aria-hidden="true">
-      <span><svg width="22" height="8"><line x1="0" y1="4" x2="22" y2="4" stroke="var(--s-price)" stroke-width="2"/></svg>Daily close</span>
-      <span><svg width="22" height="8"><line x1="0" y1="4" x2="22" y2="4" stroke="var(--s-50)" stroke-width="2"/></svg>50-day average</span>
-      <span><svg width="22" height="8"><line x1="0" y1="4" x2="22" y2="4" stroke="var(--s-200)" stroke-width="2" stroke-dasharray="5 3"/></svg>200-day average</span>
+      <span><svg width="22" height="8"><line x1="0" y1="4" x2="22" y2="4" stroke="var(--s-price)" stroke-width="2"/></svg>AI trader account</span>
+      <span><svg width="22" height="8"><line x1="0" y1="4" x2="22" y2="4" stroke="var(--s-50)" stroke-width="2" stroke-dasharray="5 3"/></svg>All in S&amp;P 500 (SPY)</span>
     </div>
-    <div class="charts">
-      <div class="chart-card"><h3>Bitcoin <small>BTC-USD · bought $1,000 on 10 Oct</small></h3><div class="chart" data-sym="BTC-USD" data-buy="1"></div><div class="tip"></div></div>
-      <div class="chart-card"><h3>Ethereum <small>ETH-USD · buy blocked, low confidence</small></h3><div class="chart" data-sym="ETH-USD"></div><div class="tip"></div></div>
-      <div class="chart-card"><h3>Solana <small>SOL-USD · on the watchlist</small></h3><div class="chart" data-sym="SOL-USD"></div><div class="tip"></div></div>
-    </div>
+    <div class="chart-card"><div class="chart" id="equity"></div><div class="tip"></div></div>
+    <p class="aside">Most of the lead comes from holding 61% in cash while the market fell, helped by defensive picks (energy, healthcare, staples) that rose. Six trading days is far too short to judge the strategy.</p>
   </section>
 
   <section>
     <div class="section-head">
-      <h2>Research snapshot</h2>
-      <p>The data behind the decisions, from Yahoo Finance at the time of the session.</p>
+      <h2>Holdings</h2>
+      <p>Valued at live prices. Share is the holding's slice of the whole account; the risk limit is 15% per holding.</p>
     </div>
     <div class="table-wrap">
       <table>
         <thead>
-          <tr><th scope="col">Asset</th><th scope="col">Price</th><th scope="col">5-day</th><th scope="col">vs 50-day avg</th><th scope="col">vs 200-day avg</th></tr>
+          <tr><th scope="col">Holding</th><th scope="col">Bought</th><th scope="col">Cost</th><th scope="col">Value</th><th scope="col">Gain/loss</th><th scope="col">Share</th></tr>
         </thead>
         <tbody>
-          <tr><td>Bitcoin</td><td>$82,977</td><td class="down">−3.3%</td><td class="up">+2.8%</td><td class="up">+15.5%</td></tr>
-          <tr><td>Ethereum</td><td>$2,508</td><td class="down">−7.5%</td><td class="down">−1.8%</td><td class="up">+17.7%</td></tr>
-          <tr><td>Solana</td><td>$110.41</td><td class="down">−8.6%</td><td class="up">+2.0%</td><td class="up">+27.5%</td></tr>
+          <tr><td>SPY <small>S&amp;P 500</small></td><td>15 Oct</td><td>$1,000.00</td><td>$985.03</td><td class="down">−$14.97 · −1.50%</td><td>9.8%</td></tr>
+          <tr><td>XLE <small>Energy</small></td><td>16 Oct</td><td>$800.00</td><td>$817.74</td><td class="up">+$17.74 · +2.22%</td><td>8.2%</td></tr>
+          <tr><td>XLP <small>Consumer staples</small></td><td>15 Oct</td><td>$800.00</td><td>$809.80</td><td class="up">+$9.80 · +1.23%</td><td>8.1%</td></tr>
+          <tr><td>XLV <small>Healthcare</small></td><td>19 Oct</td><td>$700.00</td><td>$713.52</td><td class="up">+$13.52 · +1.93%</td><td>7.1%</td></tr>
+          <tr><td>BTC <small>Bitcoin</small></td><td>15 Oct</td><td>$600.00</td><td>$593.94</td><td class="down">−$6.06 · −1.01%</td><td>5.9%</td></tr>
         </tbody>
       </table>
     </div>
@@ -390,36 +302,126 @@ footer { border-top: 1px solid var(--rule); padding-top: 18px; display: flex; fl
 
   <section>
     <div class="section-head">
-      <h2>Notes for the next session</h2>
-      <p>Claude's only memory between runs. The next session starts by reading this.</p>
+      <h2>Six months of each holding</h2>
+      <p>Daily closes with the 50- and 200-day averages Claude checks before buying and uses for its exit levels. The dot marks Claude's buy.</p>
+    </div>
+    <div class="legend" aria-hidden="true">
+      <span><svg width="22" height="8"><line x1="0" y1="4" x2="22" y2="4" stroke="var(--s-price)" stroke-width="2"/></svg>Daily close</span>
+      <span><svg width="22" height="8"><line x1="0" y1="4" x2="22" y2="4" stroke="var(--s-50)" stroke-width="2"/></svg>50-day average</span>
+      <span><svg width="22" height="8"><line x1="0" y1="4" x2="22" y2="4" stroke="var(--s-200)" stroke-width="2" stroke-dasharray="5 3"/></svg>200-day average</span>
+    </div>
+    <div class="charts">
+      <div class="chart-card"><h3>SPY <small>S&amp;P 500 fund · exit if it closes below $745</small></h3><div class="chart" data-sym="SPY" data-buy="2026-10-15" data-amt="$1,000"></div><div class="tip"></div></div>
+      <div class="chart-card"><h3>XLE <small>Energy fund · exit below $63.50</small></h3><div class="chart" data-sym="XLE" data-buy="2026-10-16" data-amt="$800"></div><div class="tip"></div></div>
+      <div class="chart-card"><h3>XLP <small>Consumer staples fund · exit below $84</small></h3><div class="chart" data-sym="XLP" data-buy="2026-10-15" data-amt="$800"></div><div class="tip"></div></div>
+      <div class="chart-card"><h3>XLV <small>Healthcare fund · exit below $168, trim above $190</small></h3><div class="chart" data-sym="XLV" data-buy="2026-10-19" data-amt="$700"></div><div class="tip"></div></div>
+      <div class="chart-card"><h3>Bitcoin <small>BTC-USD · trim below $72,000</small></h3><div class="chart" data-sym="BTC-USD" data-buy="2026-10-15" data-amt="$600"></div><div class="tip"></div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>Order blotter</h2>
+      <p>Every order Claude placed, newest first, with its confidence against the 0.6 minimum (the dark tick) and the risk layer's ruling. Reasons are Claude's own, lightly shortened.</p>
+    </div>
+    <div class="blotter">
+
+      <article class="ticket blocked">
+        <div class="left"><span class="sym">XLF</span><span class="order-line">BUY $600.00</span><span class="order-line">22 Oct · 4:01pm</span><span class="chip">Blocked</span></div>
+        <div class="right">
+          <p class="why">Watchlist trigger hit: financials back above their 50-day average and up on a day tech fell 3%. Big-bank earnings are already out, and an ETF avoids single-company earnings risk.</p>
+          <div class="conf"><span class="label">Confidence <span class="num">0.62</span></span><div class="bar" aria-hidden="true"><div class="fill" style="width:62%"></div><div class="min"></div></div></div>
+          <p class="verdict no">Risk layer: the market had closed a minute earlier. The close-of-day session now starts earlier, so this won't recur.</p>
+        </div>
+      </article>
+
+      <article class="ticket">
+        <div class="left"><span class="sym">XLV</span><span class="order-line">BUY $700.00</span><span class="order-line">19 Oct · fill $175.68</span><span class="chip">Filled</span></div>
+        <div class="right">
+          <p class="why">Healthcare as a defensive diversifier: a steady three-month uptrend (+10.7%), above its 50- and 200-day averages, little overlap with the other holdings, and it puts idle cash to work.</p>
+          <div class="conf"><span class="label">Confidence <span class="num">0.62</span></span><div class="bar" aria-hidden="true"><div class="fill" style="width:62%"></div><div class="min"></div></div></div>
+          <p class="verdict ok">Risk layer: approved at full size</p>
+        </div>
+      </article>
+
+      <article class="ticket">
+        <div class="left"><span class="sym">XLE</span><span class="order-line">BUY $800.00</span><span class="order-line">16 Oct · fill $67.46</span><span class="chip">Filled</span></div>
+        <div class="right">
+          <p class="why">Energy as a diversifier on a lasting oil-supply story (disruption in the Strait of Hormuz since February), separate from the tech selloff. The fund is near its 52-week high and well above both averages.</p>
+          <div class="conf"><span class="label">Confidence <span class="num">0.70</span></span><div class="bar" aria-hidden="true"><div class="fill" style="width:70%"></div><div class="min"></div></div></div>
+          <p class="verdict ok">Risk layer: approved at full size</p>
+        </div>
+      </article>
+
+      <article class="ticket">
+        <div class="left"><span class="sym">SPY</span><span class="order-line">BUY $1,000.00</span><span class="order-line">15 Oct · fill $771.42</span><span class="chip">Filled</span></div>
+        <div class="right">
+          <p class="why">Core S&amp;P 500 holding for a new account: above its 50- and 200-day averages and 1.1% from its 52-week high. Chose SPY over the chip-heavy QQQ while semiconductors were selling off.</p>
+          <div class="conf"><span class="label">Confidence <span class="num">0.65</span></span><div class="bar" aria-hidden="true"><div class="fill" style="width:65%"></div><div class="min"></div></div></div>
+          <p class="verdict ok">Risk layer: approved at full size</p>
+        </div>
+      </article>
+
+      <article class="ticket">
+        <div class="left"><span class="sym">BTC-USD</span><span class="order-line">BUY $600.00</span><span class="order-line">15 Oct · fill $82,230</span><span class="chip">Filled</span></div>
+        <div class="right">
+          <p class="why">A small crypto diversifier: Bitcoin is above both averages and was moving independently of the rate-fear stock selloff. Kept small because of its volatility.</p>
+          <div class="conf"><span class="label">Confidence <span class="num">0.65</span></span><div class="bar" aria-hidden="true"><div class="fill" style="width:65%"></div><div class="min"></div></div></div>
+          <p class="verdict ok">Risk layer: approved at full size</p>
+        </div>
+      </article>
+
+      <article class="ticket">
+        <div class="left"><span class="sym">XLP</span><span class="order-line">BUY $800.00</span><span class="order-line">15 Oct · fill $87.44</span><span class="chip">Filled</span></div>
+        <div class="right">
+          <p class="why">A defensive rotation: a hot inflation report was driving a tech selloff, while consumer staples rose 1.5% that day and sat near their 52-week high.</p>
+          <div class="conf"><span class="label">Confidence <span class="num">0.65</span></span><div class="bar" aria-hidden="true"><div class="fill" style="width:65%"></div><div class="min"></div></div></div>
+          <p class="verdict ok">Risk layer: approved at full size</p>
+        </div>
+      </article>
+
+    </div>
+    <p class="aside">On 15 Oct two scheduled sessions overlapped and each bought $1,000 of SPY. One save overwrote the other, so the account holds a single SPY purchase, shown above. Overlapping sessions are now blocked in code.</p>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>Risk budget</h2>
+      <p>How much of each hard limit the account is using. A full bar means further buys would be clamped or blocked.</p>
+    </div>
+    <div class="budget">
+      <div class="row"><span class="name">Largest holding</span><div class="track" role="img" aria-label="SPY at 9.8% of 15% per-holding maximum"><div class="used" style="width:65.3%"></div></div><span class="figure"><b>9.8%</b> of 15% max</span></div>
+      <div class="row"><span class="name">All crypto</span><div class="track" role="img" aria-label="5.9% of 25% crypto maximum"><div class="used" style="width:23.6%"></div></div><span class="figure"><b>5.9%</b> of 25% max</span></div>
+      <div class="row"><span class="name">Money invested</span><div class="track" role="img" aria-label="39% of the account invested"><div class="used" style="width:39%"></div></div><span class="figure"><b>39%</b> invested</span></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>Claude's plan for the next session</h2>
+      <p>Summarised from the notes Claude left itself. They are its only memory between sessions.</p>
     </div>
     <dl class="memo">
-      <dt>BTC</dt><dd>Starter 10% at ~83k. Add up to 15% if it reclaims the 20-day average (~84.4k). Exit if it closes below the 50-day average (~80.7k).</dd>
-      <dt>ETH</dt><dd>Weak: below its 20- and 50-day averages, −7.5% on the week. Buy on a reclaim of 2,660; ignore below 2,400.</dd>
-      <dt>SOL</dt><dd>−8.6% on the week but above its 50-day average (108.5). Watch 105–108 for an entry.</dd>
-      <dt>SPY</dt><dd>Open a core position (~15%) at Monday's open if it's still above its 50-day average (767).</dd>
-      <dt>Macro</dt><dd>News flow is thin. The main drivers are interest rates, inflation data and ETF flows.</dd>
+      <dt>Exits</dt><dd>Trim SPY if it closes below $745. Sell XLP below $84, XLE below $63.50 or if the oil-supply story breaks, XLV below $168 (trim above $190). Trim Bitcoin below $72,000.</dd>
+      <dt>Watching</dt><dd>XLF if it holds above $56.50. QQQ only if it reclaims about $730. XLK above $191, XLU above $44.30, VEA above $72.</dd>
+      <dt>Skipping</dt><dd>Small caps (IWM), industrials (XLI) and gold (GLD): all below their averages or trending down.</dd>
+      <dt>Rules</dt><dd>It's earnings season, so avoid single-company bets. Add at most one new holding per session and put cash to work gradually.</dd>
     </dl>
   </section>
 
   <footer>
     <span>Simulated money only. Not financial advice.</span>
-    <a href="https://github.com/kaoi-cyber/ai-trader">github.com/kaoi-cyber/ai-trader</a>
+    <span><a href="demo-2026-10-10.html">First demo session</a> · <a href="https://github.com/kaoi-cyber/ai-trader">github.com/kaoi-cyber/ai-trader</a></span>
   </footer>
 
 </main>
-<script id="prices" type="application/json">{"BTC-USD":[["2026-04-10",72979.0,68987.0,88280.0],["2026-04-11",73054.0,69088.0,88085.0],["2026-04-12",70753.0,69143.0,87872.0],["2026-04-13",74485.0,69279.0,87699.0],["2026-04-14",74182.0,69470.0,87522.0],["2026-04-15",74805.0,69685.0,87347.0],["2026-04-16",75152.0,69829.0,87163.0],["2026-04-17",77127.0,70022.0,86976.0],["2026-04-18",75726.0,70219.0,86785.0],["2026-04-19",73856.0,70356.0,86561.0],["2026-04-20",75873.0,70559.0,86336.0],["2026-04-21",76353.0,70711.0,86107.0],["2026-04-22",78203.0,70909.0,85886.0],["2026-04-23",78269.0,71020.0,85660.0],["2026-04-24",77455.0,71152.0,85423.0],["2026-04-25",77612.0,71342.0,85204.0],["2026-04-26",78658.0,71569.0,84980.0],["2026-04-27",77367.0,71797.0,84759.0],["2026-04-28",76351.0,71956.0,84574.0],["2026-04-29",75776.0,72073.0,84399.0],["2026-04-30",76304.0,72195.0,84205.0],["2026-05-01",78179.0,72349.0,84019.0],["2026-05-02",78657.0,72503.0,83847.0],["2026-05-03",78538.0,72649.0,83686.0],["2026-05-04",79828.0,72790.0,83544.0],["2026-05-05",80927.0,72911.0,83416.0],["2026-05-06",81428.0,73061.0,83288.0],["2026-05-07",80010.0,73237.0,83144.0],["2026-05-08",80187.0,73442.0,82992.0],["2026-05-09",80664.0,73645.0,82853.0],["2026-05-10",82139.0,73914.0,82725.0],["2026-05-11",81728.0,74191.0,82584.0],["2026-05-12",80477.0,74382.0,82431.0],["2026-05-13",79277.0,74558.0,82269.0],["2026-05-14",81051.0,74752.0,82102.0],["2026-05-15",79066.0,74958.0,81927.0],["2026-05-16",78131.0,75194.0,81753.0],["2026-05-17",77429.0,75416.0,81590.0],["2026-05-18",76954.0,75636.0,81433.0],["2026-05-19",76751.0,75837.0,81269.0],["2026-05-20",77458.0,76022.0,81106.0],["2026-05-21",77539.0,76211.0,80940.0],["2026-05-22",75488.0,76383.0,80785.0],["2026-05-23",76673.0,76578.0,80660.0],["2026-05-24",76981.0,76772.0,80526.0],["2026-05-25",77280.0,76937.0,80406.0],["2026-05-26",75826.0,77077.0,80268.0],["2026-05-27",74345.0,77125.0,80128.0],["2026-05-28",73537.0,77173.0,79972.0],["2026-05-29",73373.0,77205.0,79809.0],["2026-05-30",73755.0,77221.0,79663.0],["2026-05-31",73580.0,77231.0,79523.0],["2026-06-01",71320.0,77243.0,79381.0],["2026-06-02",66704.0,77087.0,79242.0],["2026-06-03",64014.0,76884.0,79085.0],["2026-06-04",63802.0,76664.0,78933.0],["2026-06-05",60923.0,76379.0,78777.0],["2026-06-06",60867.0,76054.0,78616.0],["2026-06-07",63240.0,75804.0,78475.0],["2026-06-08",63091.0,75589.0,78358.0],["2026-06-09",61644.0,75304.0,78240.0],["2026-06-10",61449.0,75006.0,78124.0],["2026-06-11",63561.0,74713.0,78008.0],["2026-06-12",63543.0,74419.0,77884.0],["2026-06-13",64421.0,74158.0,77770.0],["2026-06-14",65710.0,73920.0,77646.0],["2026-06-15",66290.0,73673.0,77521.0],["2026-06-16",65601.0,73437.0,77394.0],["2026-06-17",64418.0,73199.0,77262.0],["2026-06-18",62896.0,72941.0,77125.0],["2026-06-19",63541.0,72686.0,77011.0],["2026-06-20",64240.0,72407.0,76875.0],["2026-06-21",63238.0,72099.0,76724.0],["2026-06-22",63952.0,71807.0,76583.0],["2026-06-23",62668.0,71464.0,76449.0],["2026-06-24",60995.0,71065.0,76308.0],["2026-06-25",59722.0,70631.0,76154.0],["2026-06-26",60016.0,70231.0,76001.0],["2026-06-27",59940.0,69826.0,75837.0],["2026-06-28",59532.0,69404.0,75675.0],["2026-06-29",60138.0,68964.0,75513.0],["2026-06-30",58559.0,68500.0,75355.0],["2026-07-01",60004.0,68091.0,75203.0],["2026-07-02",61485.0,67735.0,75070.0],["2026-07-03",62544.0,67365.0,74950.0],["2026-07-04",63088.0,67045.0,74827.0],["2026-07-05",63548.0,66753.0,74714.0],["2026-07-06",63995.0,66485.0,74606.0],["2026-07-07",63297.0,66212.0,74482.0],["2026-07-08",62258.0,65922.0,74352.0],["2026-07-09",63193.0,65636.0,74225.0],["2026-07-10",64127.0,65368.0,74103.0],["2026-07-11",63802.0,65134.0,73985.0],["2026-07-12",63758.0,64876.0,73865.0],["2026-07-13",62239.0,64581.0,73740.0],["2026-07-14",64956.0,64335.0,73629.0],["2026-07-15",64712.0,64113.0,73513.0],["2026-07-16",63789.0,63902.0,73393.0],["2026-07-17",63899.0,63709.0,73277.0],["2026-07-18",64797.0,63537.0,73159.0],["2026-07-19",64691.0,63356.0,73045.0],["2026-07-20",65230.0,63189.0,72927.0],["2026-07-21",66505.0,63093.0,72810.0],["2026-07-22",66101.0,63081.0,72687.0],["2026-07-23",65045.0,63101.0,72556.0],["2026-07-24",64098.0,63107.0,72407.0],["2026-07-25",64312.0,63175.0,72260.0],["2026-07-26",65340.0,63264.0,72130.0],["2026-07-27",63725.0,63274.0,71993.0],["2026-07-28",63871.0,63290.0,71860.0],["2026-07-29",63908.0,63335.0,71728.0],["2026-07-30",64725.0,63401.0,71597.0],["2026-07-31",62814.0,63386.0,71455.0],["2026-08-01",62763.0,63370.0,71292.0],["2026-08-02",63482.0,63351.0,71125.0],["2026-08-03",63461.0,63306.0,70965.0],["2026-08-04",64056.0,63262.0,70807.0],["2026-08-05",64598.0,63241.0,70655.0],["2026-08-06",64262.0,63238.0,70508.0],["2026-08-07",64880.0,63278.0,70370.0],["2026-08-08",64905.0,63305.0,70253.0],["2026-08-09",64845.0,63317.0,70130.0],["2026-08-10",63911.0,63331.0,70002.0],["2026-08-11",63552.0,63323.0,69872.0],["2026-08-12",63402.0,63338.0,69744.0],["2026-08-13",63402.0,63386.0,69628.0],["2026-08-14",62976.0,63451.0,69502.0],["2026-08-15",63024.0,63511.0,69371.0],["2026-08-16",62819.0,63569.0,69239.0],["2026-08-17",64506.0,63668.0,69139.0],["2026-08-18",64681.0,63759.0,69042.0],["2026-08-19",69266.0,63973.0,68995.0],["2026-08-20",73033.0,64234.0,68975.0],["2026-08-21",78335.0,64571.0,68974.0],["2026-08-22",77083.0,64861.0,68981.0],["2026-08-23",77755.0,65155.0,69005.0],["2026-08-24",78964.0,65463.0,69086.0],["2026-08-25",78565.0,65754.0,69126.0],["2026-08-26",79027.0,66069.0,69175.0],["2026-08-27",80258.0,66429.0,69225.0],["2026-08-28",77830.0,66722.0,69263.0],["2026-08-29",78246.0,67004.0,69310.0],["2026-08-30",77668.0,67281.0,69364.0],["2026-08-31",78549.0,67577.0,69425.0],["2026-09-01",77404.0,67881.0,69468.0],["2026-09-02",77300.0,68127.0,69506.0],["2026-09-03",81272.0,68459.0,69568.0],["2026-09-04",79672.0,68776.0,69622.0],["2026-09-05",79824.0,69095.0,69684.0],["2026-09-06",80350.0,69406.0,69754.0],["2026-09-07",79116.0,69694.0,69814.0],["2026-09-08",78439.0,69958.0,69867.0],["2026-09-09",78260.0,70194.0,69918.0],["2026-09-10",76568.0,70403.0,69962.0],["2026-09-11",77174.0,70646.0,70025.0],["2026-09-12",77270.0,70909.0,70091.0],["2026-09-13",76838.0,71159.0,70136.0],["2026-09-14",78163.0,71416.0,70189.0],["2026-09-15",75613.0,71654.0,70238.0],["2026-09-16",76150.0,71899.0,70283.0],["2026-09-17",76404.0,72149.0,70337.0],["2026-09-18",80901.0,72473.0,70397.0],["2026-09-19",81234.0,72841.0,70462.0],["2026-09-20",81143.0,73209.0,70504.0],["2026-09-21",86603.0,73671.0,70583.0],["2026-09-22",86172.0,74125.0,70673.0],["2026-09-23",84383.0,74532.0,70759.0],["2026-09-24",84379.0,74928.0,70851.0],["2026-09-25",84035.0,75323.0,70929.0],["2026-09-26",84406.0,75713.0,71001.0],["2026-09-27",84458.0,76105.0,71073.0],["2026-09-28",83503.0,76478.0,71138.0],["2026-09-29",83622.0,76872.0,71201.0],["2026-09-30",83554.0,77272.0,71263.0],["2026-10-01",84853.0,77701.0,71323.0],["2026-10-02",84497.0,78123.0,71371.0],["2026-10-03",84764.0,78559.0,71425.0],["2026-10-04",86480.0,79028.0,71502.0],["2026-10-05",85787.0,79487.0,71581.0],["2026-10-06",85558.0,79908.0,71656.0],["2026-10-07",83276.0,80280.0,71729.0],["2026-10-08",81676.0,80528.0,71798.0],["2026-10-09",82546.0,80719.0,71856.0],["2026-10-10",82972.0,80811.0,71919.0]],"ETH-USD":[["2026-04-10",2245.0,2069.0,2937.0],["2026-04-11",2285.0,2075.0,2928.0],["2026-04-12",2192.0,2080.0,2918.0],["2026-04-13",2371.0,2088.0,2910.0],["2026-04-14",2323.0,2097.0,2902.0],["2026-04-15",2359.0,2108.0,2894.0],["2026-04-16",2349.0,2113.0,2885.0],["2026-04-17",2421.0,2121.0,2876.0],["2026-04-18",2351.0,2130.0,2867.0],["2026-04-19",2265.0,2136.0,2856.0],["2026-04-20",2315.0,2143.0,2845.0],["2026-04-21",2328.0,2149.0,2834.0],["2026-04-22",2376.0,2157.0,2824.0],["2026-04-23",2332.0,2161.0,2813.0],["2026-04-24",2316.0,2166.0,2801.0],["2026-04-25",2319.0,2173.0,2790.0],["2026-04-26",2370.0,2181.0,2780.0],["2026-04-27",2303.0,2188.0,2769.0],["2026-04-28",2289.0,2194.0,2762.0],["2026-04-29",2253.0,2198.0,2754.0],["2026-04-30",2256.0,2203.0,2745.0],["2026-05-01",2295.0,2207.0,2735.0],["2026-05-02",2316.0,2211.0,2726.0],["2026-05-03",2322.0,2216.0,2717.0],["2026-05-04",2346.0,2219.0,2710.0],["2026-05-05",2361.0,2220.0,2702.0],["2026-05-06",2351.0,2220.0,2695.0],["2026-05-07",2291.0,2222.0,2686.0],["2026-05-08",2307.0,2225.0,2678.0],["2026-05-09",2327.0,2229.0,2670.0],["2026-05-10",2369.0,2235.0,2663.0],["2026-05-11",2339.0,2241.0,2655.0],["2026-05-12",2275.0,2243.0,2647.0],["2026-05-13",2258.0,2245.0,2638.0],["2026-05-14",2281.0,2247.0,2629.0],["2026-05-15",2223.0,2251.0,2620.0],["2026-05-16",2180.0,2254.0,2611.0],["2026-05-17",2128.0,2257.0,2602.0],["2026-05-18",2129.0,2260.0,2593.0],["2026-05-19",2110.0,2262.0,2585.0],["2026-05-20",2127.0,2262.0,2576.0],["2026-05-21",2131.0,2262.0,2567.0],["2026-05-22",2065.0,2262.0,2559.0],["2026-05-23",2116.0,2263.0,2553.0],["2026-05-24",2098.0,2264.0,2547.0],["2026-05-25",2111.0,2264.0,2541.0],["2026-05-26",2071.0,2263.0,2534.0],["2026-05-27",2022.0,2259.0,2527.0],["2026-05-28",2008.0,2255.0,2519.0],["2026-05-29",2012.0,2252.0,2511.0],["2026-05-30",2019.0,2247.0,2504.0],["2026-05-31",2004.0,2242.0,2497.0],["2026-06-01",2003.0,2238.0,2491.0],["2026-06-02",1858.0,2228.0,2485.0],["2026-06-03",1812.0,2217.0,2478.0],["2026-06-04",1770.0,2206.0,2472.0],["2026-06-05",1581.0,2190.0,2464.0],["2026-06-06",1569.0,2173.0,2457.0],["2026-06-07",1686.0,2160.0,2450.0],["2026-06-08",1690.0,2148.0,2444.0],["2026-06-09",1638.0,2135.0,2439.0],["2026-06-10",1620.0,2121.0,2433.0],["2026-06-11",1672.0,2107.0,2427.0],["2026-06-12",1665.0,2093.0,2421.0],["2026-06-13",1680.0,2081.0,2414.0],["2026-06-14",1725.0,2069.0,2408.0],["2026-06-15",1795.0,2057.0,2402.0],["2026-06-16",1790.0,2047.0,2396.0],["2026-06-17",1748.0,2036.0,2389.0],["2026-06-18",1710.0,2025.0,2383.0],["2026-06-19",1711.0,2014.0,2378.0],["2026-06-20",1739.0,2003.0,2371.0],["2026-06-21",1705.0,1991.0,2364.0],["2026-06-22",1727.0,1979.0,2357.0],["2026-06-23",1665.0,1965.0,2350.0],["2026-06-24",1620.0,1951.0,2343.0],["2026-06-25",1565.0,1935.0,2335.0],["2026-06-26",1577.0,1921.0,2328.0],["2026-06-27",1572.0,1906.0,2319.0],["2026-06-28",1570.0,1891.0,2310.0],["2026-06-29",1610.0,1876.0,2302.0],["2026-06-30",1570.0,1860.0,2294.0],["2026-07-01",1609.0,1847.0,2287.0],["2026-07-02",1698.0,1836.0,2280.0],["2026-07-03",1757.0,1825.0,2274.0],["2026-07-04",1779.0,1816.0,2268.0],["2026-07-05",1783.0,1808.0,2263.0],["2026-07-06",1798.0,1802.0,2258.0],["2026-07-07",1769.0,1795.0,2252.0],["2026-07-08",1743.0,1787.0,2245.0],["2026-07-09",1744.0,1780.0,2239.0],["2026-07-10",1796.0,1773.0,2233.0],["2026-07-11",1788.0,1767.0,2227.0],["2026-07-12",1806.0,1761.0,2222.0],["2026-07-13",1774.0,1755.0,2216.0],["2026-07-14",1889.0,1750.0,2211.0],["2026-07-15",1917.0,1747.0,2206.0],["2026-07-16",1863.0,1744.0,2200.0],["2026-07-17",1841.0,1741.0,2195.0],["2026-07-18",1861.0,1738.0,2189.0],["2026-07-19",1872.0,1735.0,2184.0],["2026-07-20",1904.0,1733.0,2178.0],["2026-07-21",1928.0,1731.0,2172.0],["2026-07-22",1933.0,1733.0,2166.0],["2026-07-23",1877.0,1734.0,2160.0],["2026-07-24",1860.0,1736.0,2153.0],["2026-07-25",1873.0,1742.0,2146.0],["2026-07-26",1953.0,1749.0,2140.0],["2026-07-27",1891.0,1753.0,2134.0],["2026-07-28",1920.0,1758.0,2128.0],["2026-07-29",1909.0,1763.0,2122.0],["2026-07-30",1917.0,1769.0,2116.0],["2026-07-31",1860.0,1773.0,2110.0],["2026-08-01",1843.0,1777.0,2103.0],["2026-08-02",1883.0,1781.0,2095.0],["2026-08-03",1858.0,1783.0,2088.0],["2026-08-04",1868.0,1785.0,2081.0],["2026-08-05",1907.0,1787.0,2074.0],["2026-08-06",1902.0,1790.0,2067.0],["2026-08-07",1913.0,1794.0,2061.0],["2026-08-08",1916.0,1798.0,2055.0],["2026-08-09",1909.0,1802.0,2050.0],["2026-08-10",1871.0,1805.0,2045.0],["2026-08-11",1881.0,1808.0,2039.0],["2026-08-12",1878.0,1812.0,2034.0],["2026-08-13",1884.0,1818.0,2029.0],["2026-08-14",1881.0,1824.0,2024.0],["2026-08-15",1881.0,1830.0,2018.0],["2026-08-16",1874.0,1836.0,2013.0],["2026-08-17",1912.0,1843.0,2008.0],["2026-08-18",1916.0,1849.0,2004.0],["2026-08-19",2251.0,1863.0,2003.0],["2026-08-20",2326.0,1877.0,2004.0],["2026-08-21",2515.0,1894.0,2004.0],["2026-08-22",2424.0,1907.0,2005.0],["2026-08-23",2464.0,1921.0,2007.0],["2026-08-24",2482.0,1935.0,2010.0],["2026-08-25",2443.0,1947.0,2012.0],["2026-08-26",2506.0,1962.0,2014.0],["2026-08-27",2510.0,1978.0,2016.0],["2026-08-28",2443.0,1992.0,2018.0],["2026-08-29",2458.0,2005.0,2020.0],["2026-08-30",2418.0,2017.0,2023.0],["2026-08-31",2467.0,2031.0,2025.0],["2026-09-01",2418.0,2043.0,2027.0],["2026-09-02",2392.0,2054.0,2029.0],["2026-09-03",2508.0,2065.0,2031.0],["2026-09-04",2456.0,2077.0,2034.0],["2026-09-05",2481.0,2090.0,2036.0],["2026-09-06",2515.0,2103.0,2039.0],["2026-09-07",2491.0,2115.0,2042.0],["2026-09-08",2485.0,2127.0,2044.0],["2026-09-09",2467.0,2138.0,2047.0],["2026-09-10",2437.0,2148.0,2049.0],["2026-09-11",2515.0,2161.0,2052.0],["2026-09-12",2526.0,2174.0,2056.0],["2026-09-13",2477.0,2186.0,2058.0],["2026-09-14",2514.0,2197.0,2060.0],["2026-09-15",2399.0,2207.0,2063.0],["2026-09-16",2416.0,2217.0,2065.0],["2026-09-17",2447.0,2228.0,2067.0],["2026-09-18",2611.0,2242.0,2070.0],["2026-09-19",2632.0,2257.0,2074.0],["2026-09-20",2643.0,2273.0,2076.0],["2026-09-21",2776.0,2291.0,2080.0],["2026-09-22",2753.0,2309.0,2084.0],["2026-09-23",2685.0,2326.0,2087.0],["2026-09-24",2687.0,2341.0,2091.0],["2026-09-25",2690.0,2357.0,2094.0],["2026-09-26",2695.0,2373.0,2098.0],["2026-09-27",2687.0,2388.0,2101.0],["2026-09-28",2689.0,2404.0,2104.0],["2026-09-29",2677.0,2420.0,2107.0],["2026-09-30",2684.0,2436.0,2110.0],["2026-10-01",2706.0,2452.0,2112.0],["2026-10-02",2668.0,2468.0,2114.0],["2026-10-03",2687.0,2484.0,2116.0],["2026-10-04",2727.0,2501.0,2118.0],["2026-10-05",2711.0,2518.0,2121.0],["2026-10-06",2698.0,2533.0,2124.0],["2026-10-07",2574.0,2547.0,2127.0],["2026-10-08",2472.0,2551.0,2129.0],["2026-10-09",2486.0,2554.0,2130.0],["2026-10-10",2504.0,2554.0,2132.0]],"SOL-USD":[["2026-04-10",84.83,85.48,131.86],["2026-04-11",84.95,85.49,131.22],["2026-04-12",81.54,85.41,130.57],["2026-04-13",86.66,85.49,130.04],["2026-04-14",83.77,85.61,129.43],["2026-04-15",84.92,85.73,128.84],["2026-04-16",88.99,85.75,128.23],["2026-04-17",88.87,85.81,127.61],["2026-04-18",86.2,85.89,127.0],["2026-04-19",83.58,85.88,126.3],["2026-04-20",85.33,85.91,125.56],["2026-04-21",86.03,85.9,124.82],["2026-04-22",86.92,85.9,124.12],["2026-04-23",86.14,85.8,123.4],["2026-04-24",86.23,85.76,122.67],["2026-04-25",86.15,85.78,122.0],["2026-04-26",86.97,85.86,121.29],["2026-04-27",84.82,85.92,120.61],["2026-04-28",84.04,85.91,120.09],["2026-04-29",83.03,85.85,119.61],["2026-04-30",83.02,85.78,119.04],["2026-05-01",83.72,85.72,118.42],["2026-05-02",84.28,85.64,117.83],["2026-05-03",83.9,85.56,117.27],["2026-05-04",84.09,85.39,116.77],["2026-05-05",86.32,85.19,116.29],["2026-05-06",89.15,85.08,115.8],["2026-05-07",88.4,85.05,115.3],["2026-05-08",91.95,85.11,114.81],["2026-05-09",93.15,85.18,114.35],["2026-05-10",96.43,85.36,113.93],["2026-05-11",97.35,85.58,113.46],["2026-05-12",94.28,85.64,112.97],["2026-05-13",91.09,85.64,112.45],["2026-05-14",92.15,85.65,111.91],["2026-05-15",89.2,85.71,111.36],["2026-05-16",86.54,85.78,110.83],["2026-05-17",85.17,85.84,110.28],["2026-05-18",85.3,85.92,109.78],["2026-05-19",84.21,85.95,109.27],["2026-05-20",86.04,86.01,108.77],["2026-05-21",87.16,86.13,108.26],["2026-05-22",84.31,86.24,107.85],["2026-05-23",85.66,86.34,107.5],["2026-05-24",85.25,86.43,107.12],["2026-05-25",85.01,86.5,106.77],["2026-05-26",83.59,86.56,106.38],["2026-05-27",82.37,86.5,106.0],["2026-05-28",81.99,86.49,105.59],["2026-05-29",81.93,86.46,105.16],["2026-05-30",82.55,86.41,104.8],["2026-05-31",82.3,86.36,104.44],["2026-06-01",81.09,86.35,104.12],["2026-06-02",74.14,86.1,103.8],["2026-06-03",71.61,85.86,103.46],["2026-06-04",68.72,85.53,103.12],["2026-06-05",63.49,85.02,102.78],["2026-06-06",62.19,84.49,102.39],["2026-06-07",66.31,84.09,102.04],["2026-06-08",66.79,83.76,101.7],["2026-06-09",64.96,83.35,101.39],["2026-06-10",63.16,82.89,101.06],["2026-06-11",66.82,82.49,100.74],["2026-06-12",66.75,82.1,100.39],["2026-06-13",68.87,81.75,100.04],["2026-06-14",71.17,81.46,99.68],["2026-06-15",73.98,81.2,99.34],["2026-06-16",73.41,80.97,99.02],["2026-06-17",71.93,80.73,98.7],["2026-06-18",69.63,80.46,98.38],["2026-06-19",69.72,80.19,98.1],["2026-06-20",73.17,79.98,97.77],["2026-06-21",72.42,79.74,97.41],["2026-06-22",71.91,79.5,97.07],["2026-06-23",69.64,79.21,96.75],["2026-06-24",67.98,78.85,96.43],["2026-06-25",67.57,78.42,96.11],["2026-06-26",71.84,78.08,95.8],["2026-06-27",70.41,77.65,95.46],["2026-06-28",71.31,77.22,95.14],["2026-06-29",74.95,76.79,94.83],["2026-06-30",73.52,76.31,94.54],["2026-07-01",77.38,75.97,94.26],["2026-07-02",80.64,75.76,94.01],["2026-07-03",82.28,75.57,93.79],["2026-07-04",81.65,75.42,93.55],["2026-07-05",81.42,75.31,93.34],["2026-07-06",81.92,75.25,93.15],["2026-07-07",80.65,75.16,92.92],["2026-07-08",77.79,75.03,92.68],["2026-07-09",78.05,74.87,92.44],["2026-07-10",78.07,74.69,92.21],["2026-07-11",76.82,74.54,91.97],["2026-07-12",76.87,74.36,91.74],["2026-07-13",74.86,74.15,91.52],["2026-07-14",77.76,74.01,91.3],["2026-07-15",77.26,73.88,91.06],["2026-07-16",75.27,73.74,90.81],["2026-07-17",75.01,73.6,90.57],["2026-07-18",75.46,73.47,90.32],["2026-07-19",76.36,73.35,90.08],["2026-07-20",77.79,73.26,89.84],["2026-07-21",78.11,73.2,89.57],["2026-07-22",77.91,73.27,89.29],["2026-07-23",75.86,73.36,89.0],["2026-07-24",73.88,73.46,88.68],["2026-07-25",74.43,73.68,88.34],["2026-07-26",76.6,73.97,88.05],["2026-07-27",74.14,74.12,87.72],["2026-07-28",73.7,74.26,87.41],["2026-07-29",73.6,74.43,87.1],["2026-07-30",74.47,74.66,86.78],["2026-07-31",72.79,74.78,86.45],["2026-08-01",71.87,74.88,86.08],["2026-08-02",73.45,74.97,85.71],["2026-08-03",73.47,75.02,85.37],["2026-08-04",73.72,75.01,85.01],["2026-08-05",73.96,75.03,84.66],["2026-08-06",72.58,75.04,84.34],["2026-08-07",73.64,75.12,84.04],["2026-08-08",75.97,75.24,83.79],["2026-08-09",76.21,75.3,83.52],["2026-08-10",75.95,75.38,83.26],["2026-08-11",76.2,75.46,83.01],["2026-08-12",75.53,75.58,82.75],["2026-08-13",76.18,75.74,82.54],["2026-08-14",75.33,75.9,82.29],["2026-08-15",75.27,75.97,82.03],["2026-08-16",74.54,76.05,81.78],["2026-08-17",75.94,76.14,81.57],["2026-08-18",77.03,76.18,81.37],["2026-08-19",85.37,76.42,81.27],["2026-08-20",87.64,76.63,81.2],["2026-08-21",93.65,76.89,81.15],["2026-08-22",93.91,77.12,81.13],["2026-08-23",95.44,77.39,81.15],["2026-08-24",98.56,77.74,81.25],["2026-08-25",96.6,78.03,81.3],["2026-08-26",102.17,78.46,81.37],["2026-08-27",109.21,79.09,81.48],["2026-08-28",104.13,79.61,81.57],["2026-08-29",105.65,80.16,81.68],["2026-08-30",101.88,80.66,81.79],["2026-08-31",103.0,81.19,81.92],["2026-09-01",99.99,81.69,81.99],["2026-09-02",100.39,82.14,82.06],["2026-09-03",103.98,82.68,82.15],["2026-09-04",101.95,83.21,82.22],["2026-09-05",103.19,83.77,82.31],["2026-09-06",106.45,84.39,82.44],["2026-09-07",103.87,84.94,82.55],["2026-09-08",103.33,85.45,82.64],["2026-09-09",101.61,85.92,82.72],["2026-09-10",98.69,86.34,82.8],["2026-09-11",102.4,86.87,82.92],["2026-09-12",101.79,87.43,83.04],["2026-09-13",99.25,87.92,83.09],["2026-09-14",102.5,88.44,83.18],["2026-09-15",96.89,88.9,83.25],["2026-09-16",98.64,89.4,83.32],["2026-09-17",101.6,89.96,83.41],["2026-09-18",112.6,90.72,83.54],["2026-09-19",111.01,91.48,83.66],["2026-09-20",111.13,92.27,83.76],["2026-09-21",118.75,93.17,83.91],["2026-09-22",118.51,94.07,84.08],["2026-09-23",114.98,94.9,84.24],["2026-09-24",117.01,95.76,84.42],["2026-09-25",122.01,96.75,84.6],["2026-09-26",121.43,97.71,84.78],["2026-09-27",122.06,98.63,84.96],["2026-09-28",118.84,99.48,85.12],["2026-09-29",119.06,100.34,85.27],["2026-09-30",117.99,101.18,85.42],["2026-10-01",118.4,102.04,85.55],["2026-10-02",118.62,102.88,85.67],["2026-10-03",119.65,103.77,85.79],["2026-10-04",121.53,104.7,85.95],["2026-10-05",120.75,105.62,86.11],["2026-10-06",120.79,106.52,86.26],["2026-10-07",116.22,107.3,86.41],["2026-10-08",109.44,107.78,86.52],["2026-10-09",109.14,108.21,86.61],["2026-10-10",109.93,108.54,86.71]]}</script>
+
+<script id="account-data" type="application/json">{"equity":[["2026-10-14",10000.0,10000.0],["2026-10-15",9992.85,10004.85],["2026-10-16",9994.91,9894.15],["2026-10-19",9992.59,9936.02],["2026-10-20",10027.43,9969.34],["2026-10-21",10033.37,10021.71],["2026-10-22",10030.59,9903.35],["2026-10-23",10020.03,9850.33]],"charts":{"SPY":[["2026-04-23",704.88,672.19,0.0],["2026-04-24",710.34,672.66,0.0],["2026-04-27",711.57,673.37,0.0],["2026-04-28",708.1,674.01,0.0],["2026-04-29",707.99,674.61,0.0],["2026-04-30",715.04,675.3,0.0],["2026-05-01",717.02,676.05,0.0],["2026-05-04",714.39,676.66,0.0],["2026-05-05",720.12,677.52,0.0],["2026-05-06",730.13,678.48,0.0],["2026-05-07",727.89,679.28,0.0],["2026-05-08",733.9,680.28,0.0],["2026-05-11",735.57,681.38,0.0],["2026-05-12",734.46,682.45,0.0],["2026-05-13",738.57,683.72,0.0],["2026-05-14",744.4,685.01,0.0],["2026-05-15",735.44,686.2,0.0],["2026-05-18",734.93,687.55,0.0],["2026-05-19",730.03,688.69,0.0],["2026-05-20",737.51,690.01,0.0],["2026-05-21",738.98,691.36,0.0],["2026-05-22",741.88,692.98,0.0],["2026-05-26",746.81,694.78,0.0],["2026-05-27",746.68,696.43,0.0],["2026-05-28",750.8,698.14,0.0],["2026-05-29",752.67,700.06,0.0],["2026-06-01",754.72,702.07,0.0],["2026-06-02",755.74,704.27,0.0],["2026-06-03",750.44,706.24,0.0],["2026-06-04",753.27,708.31,0.0],["2026-06-05",733.83,709.92,0.0],["2026-06-08",735.49,711.79,0.0],["2026-06-09",733.34,713.84,0.0],["2026-06-10",721.77,715.7,0.0],["2026-06-11",734.04,717.44,0.0],["2026-06-12",738.01,719.16,0.0],["2026-06-15",751.03,721.13,0.0],["2026-06-16",746.55,722.95,0.0],["2026-06-17",737.23,724.57,682.23],["2026-06-18",744.89,726.02,682.79],["2026-06-22",742.55,727.34,683.33],["2026-06-23",731.76,728.46,683.79],["2026-06-24",731.42,729.43,684.25],["2026-06-25",732.48,730.26,684.71],["2026-06-26",727.18,730.88,685.14],["2026-06-29",739.16,731.7,685.62],["2026-06-30",744.92,732.46,686.1],["2026-07-01",743.91,733.24,686.58],["2026-07-02",742.94,734.09,687.03],["2026-07-06",749.42,734.92,687.52],["2026-07-07",745.86,735.74,688.0],["2026-07-08",743.55,736.41,688.45],["2026-07-09",749.85,737.17,688.92],["2026-07-10",753.08,738.07,689.38],["2026-07-13",747.31,738.86,689.84],["2026-07-14",749.97,739.56,690.32],["2026-07-15",752.94,740.28,690.83],["2026-07-16",748.86,740.97,691.3],["2026-07-17",741.45,741.39,691.72],["2026-07-20",740.25,741.59,692.13],["2026-07-21",746.43,741.97,692.55],["2026-07-22",745.56,742.2,692.97],["2026-07-23",736.35,742.21,693.34],["2026-07-24",737.1,742.27,693.71],["2026-07-27",737.26,742.24,694.08],["2026-07-28",739.02,742.13,694.45],["2026-07-29",727.65,741.98,694.77],["2026-07-30",739.85,742.08,695.24],["2026-07-31",745.18,742.38,695.68],["2026-08-03",755.79,742.74,696.18],["2026-08-04",769.42,743.35,696.74],["2026-08-05",767.88,743.87,697.31],["2026-08-06",766.66,744.27,697.86],["2026-08-07",771.34,744.76,698.4],["2026-08-10",771.12,745.17,698.93],["2026-08-11",768.65,745.49,699.47],["2026-08-12",770.58,745.81,700.0],["2026-08-13",775.95,746.21,700.53],["2026-08-14",774.42,746.69,701.01],["2026-08-17",770.76,747.04,701.47],["2026-08-18",765.55,747.67,701.89],["2026-08-19",767.15,748.31,702.37],["2026-08-20",760.71,748.86,702.8],["2026-08-21",763.82,749.7,703.24],["2026-08-24",761.58,750.25,703.7],["2026-08-25",764.01,750.77,704.17],["2026-08-26",764.18,751.03,704.68],["2026-08-27",769.19,751.48,705.2],["2026-08-28",767.44,752.09,705.67],["2026-08-31",765.15,752.49,706.12],["2026-09-01",759.89,752.84,706.54],["2026-09-02",763.26,753.47,707.03],["2026-09-03",771.25,754.27,707.56],["2026-09-04",768.28,754.98,708.11],["2026-09-08",764.06,755.72,708.67],["2026-09-09",760.51,756.15,709.19],["2026-09-10",755.95,756.37,709.74],["2026-09-11",762.4,756.74,710.29],["2026-09-14",759.0,757.06,710.78],["2026-09-15",755.51,757.18,711.22],["2026-09-16",752.18,757.31,711.62],["2026-09-17",760.71,757.65,712.04],["2026-09-18",761.69,757.89,712.48],["2026-09-21",773.5,758.3,712.98],["2026-09-22",773.38,758.82,713.46],["2026-09-23",767.81,759.17,713.92],["2026-09-24",767.18,759.46,714.36],["2026-09-25",771.35,759.91,714.84],["2026-09-28",765.61,760.39,715.29],["2026-09-29",764.2,760.87,715.71],["2026-09-30",762.63,761.19,716.11],["2026-10-01",763.99,761.56,716.56],["2026-10-02",769.64,762.23,717.04],["2026-10-05",774.83,762.98,717.56],["2026-10-06",779.09,763.82,718.13],["2026-10-07",777.22,764.58,718.67],["2026-10-08",773.93,765.51,719.16],["2026-10-09",778.57,766.28,719.66],["2026-10-12",778.1,766.94,720.14],["2026-10-13",778.01,767.39,720.6],["2026-10-14",769.6,767.39,721.02],["2026-10-15",771.79,767.47,721.47],["2026-10-16",763.25,767.4,721.88],["2026-10-19",766.48,767.3,722.33],["2026-10-20",769.05,767.26,722.78],["2026-10-21",773.09,767.35,723.24],["2026-10-22",763.96,767.22,723.62],["2026-10-23",759.87,766.9,724.0]],"XLP":[["2026-04-23",82.36,83.12,0.0],["2026-04-24",82.12,83.03,0.0],["2026-04-27",81.24,82.9,0.0],["2026-04-28",81.97,82.78,0.0],["2026-04-29",81.81,82.69,0.0],["2026-04-30",83.18,82.63,0.0],["2026-05-01",83.04,82.57,0.0],["2026-05-04",82.42,82.49,0.0],["2026-05-05",82.94,82.4,0.0],["2026-05-06",83.11,82.3,0.0],["2026-05-07",82.86,82.21,0.0],["2026-05-08",83.05,82.13,0.0],["2026-05-11",82.25,82.01,0.0],["2026-05-12",83.31,81.94,0.0],["2026-05-13",83.59,81.89,0.0],["2026-05-14",83.84,81.85,0.0],["2026-05-15",83.51,81.85,0.0],["2026-05-18",84.75,81.86,0.0],["2026-05-19",84.94,81.87,0.0],["2026-05-20",84.38,81.88,0.0],["2026-05-21",83.53,81.89,0.0],["2026-05-22",83.67,81.91,0.0],["2026-05-26",82.51,81.9,0.0],["2026-05-27",83.45,81.9,0.0],["2026-05-28",83.3,81.9,0.0],["2026-05-29",81.8,81.92,0.0],["2026-06-01",80.93,81.93,0.0],["2026-06-02",80.74,81.95,0.0],["2026-06-03",81.06,81.96,0.0],["2026-06-04",80.94,81.98,0.0],["2026-06-05",82.32,82.02,0.0],["2026-06-08",81.96,82.06,0.0],["2026-06-09",82.97,82.1,0.0],["2026-06-10",84.35,82.18,0.0],["2026-06-11",84.13,82.24,0.0],["2026-06-12",84.67,82.33,0.0],["2026-06-15",84.34,82.4,0.0],["2026-06-16",84.44,82.46,0.0],["2026-06-17",82.56,82.5,79.88],["2026-06-18",82.19,82.51,79.9],["2026-06-22",81.64,82.5,79.92],["2026-06-23",83.17,82.54,79.94],["2026-06-24",83.89,82.61,79.97],["2026-06-25",83.39,82.67,80.0],["2026-06-26",84.16,82.75,80.03],["2026-06-29",83.82,82.82,80.06],["2026-06-30",82.53,82.84,80.09],["2026-07-01",82.76,82.87,80.11],["2026-07-02",84.43,82.95,80.15],["2026-07-06",83.55,83.0,80.18],["2026-07-07",84.31,83.04,80.22],["2026-07-08",83.84,83.07,80.25],["2026-07-09",82.66,83.1,80.28],["2026-07-10",83.57,83.13,80.32],["2026-07-13",84.04,83.18,80.36],["2026-07-14",82.87,83.17,80.39],["2026-07-15",82.92,83.17,80.43],["2026-07-16",85.25,83.22,80.47],["2026-07-17",84.63,83.26,80.52],["2026-07-20",84.31,83.28,80.56],["2026-07-21",83.51,83.29,80.59],["2026-07-22",83.83,83.31,80.63],["2026-07-23",82.67,83.32,80.67],["2026-07-24",83.58,83.32,80.71],["2026-07-27",84.8,83.35,80.75],["2026-07-28",86.49,83.4,80.81],["2026-07-29",86.79,83.47,80.86],["2026-07-30",84.91,83.47,80.9],["2026-07-31",84.49,83.46,80.95],["2026-08-03",84.31,83.46,80.98],["2026-08-04",84.81,83.49,81.02],["2026-08-05",84.77,83.51,81.06],["2026-08-06",84.55,83.55,81.1],["2026-08-07",84.56,83.57,81.13],["2026-08-10",84.39,83.59,81.17],["2026-08-11",84.14,83.64,81.2],["2026-08-12",84.52,83.71,81.24],["2026-08-13",85.44,83.8,81.28],["2026-08-14",85.53,83.89,81.32],["2026-08-17",84.13,83.96,81.36],["2026-08-18",85.02,84.01,81.41],["2026-08-19",85.97,84.09,81.47],["2026-08-20",84.76,84.13,81.53],["2026-08-21",85.43,84.15,81.58],["2026-08-24",86.88,84.2,81.65],["2026-08-25",85.95,84.23,81.71],["2026-08-26",85.71,84.26,81.77],["2026-08-27",84.52,84.26,81.82],["2026-08-28",84.89,84.31,81.87],["2026-08-31",84.42,84.35,81.92],["2026-09-01",84.69,84.41,81.96],["2026-09-02",84.97,84.45,82.01],["2026-09-03",84.7,84.46,82.06],["2026-09-04",84.03,84.48,82.11],["2026-09-08",83.47,84.46,82.15],["2026-09-09",82.51,84.44,82.19],["2026-09-10",82.55,84.44,82.23],["2026-09-11",82.84,84.44,82.26],["2026-09-14",83.87,84.43,82.31],["2026-09-15",83.18,84.42,82.34],["2026-09-16",82.79,84.39,82.37],["2026-09-17",82.94,84.37,82.4],["2026-09-18",82.26,84.36,82.43],["2026-09-21",81.92,84.33,82.45],["2026-09-22",82.73,84.3,82.48],["2026-09-23",82.43,84.3,82.51],["2026-09-24",81.7,84.27,82.54],["2026-09-25",82.06,84.21,82.57],["2026-09-28",82.28,84.16,82.6],["2026-09-29",81.85,84.11,82.63],["2026-09-30",80.6,84.05,82.65],["2026-10-01",80.33,83.98,82.67],["2026-10-02",80.53,83.94,82.68],["2026-10-05",81.04,83.89,82.7],["2026-10-06",81.8,83.83,82.72],["2026-10-07",81.7,83.73,82.75],["2026-10-08",83.42,83.67,82.78],["2026-10-09",83.43,83.64,82.81],["2026-10-12",84.41,83.63,82.86],["2026-10-13",84.19,83.63,82.89],["2026-10-14",86.06,83.66,82.94],["2026-10-15",86.68,83.7,82.99],["2026-10-16",87.62,83.76,83.04],["2026-10-19",87.21,83.81,83.1],["2026-10-20",87.75,83.88,83.16],["2026-10-21",87.11,83.94,83.21],["2026-10-22",89.99,84.05,83.28],["2026-10-23",88.51,84.11,83.35]],"BTC-USD":[["2026-04-23",78269.0,71020.0,85660.0],["2026-04-24",77455.0,71152.0,85423.0],["2026-04-25",77612.0,71342.0,85204.0],["2026-04-26",78658.0,71569.0,84980.0],["2026-04-27",77367.0,71797.0,84759.0],["2026-04-28",76351.0,71956.0,84574.0],["2026-04-29",75776.0,72073.0,84399.0],["2026-04-30",76304.0,72195.0,84205.0],["2026-05-01",78179.0,72349.0,84019.0],["2026-05-02",78657.0,72503.0,83847.0],["2026-05-03",78538.0,72649.0,83686.0],["2026-05-04",79828.0,72790.0,83544.0],["2026-05-05",80927.0,72911.0,83416.0],["2026-05-06",81428.0,73061.0,83288.0],["2026-05-07",80010.0,73237.0,83144.0],["2026-05-08",80187.0,73442.0,82992.0],["2026-05-09",80664.0,73645.0,82853.0],["2026-05-10",82139.0,73914.0,82725.0],["2026-05-11",81728.0,74191.0,82584.0],["2026-05-12",80477.0,74382.0,82431.0],["2026-05-13",79277.0,74558.0,82269.0],["2026-05-14",81051.0,74752.0,82102.0],["2026-05-15",79066.0,74958.0,81927.0],["2026-05-16",78131.0,75194.0,81753.0],["2026-05-17",77429.0,75416.0,81590.0],["2026-05-18",76954.0,75636.0,81433.0],["2026-05-19",76751.0,75837.0,81269.0],["2026-05-20",77458.0,76022.0,81106.0],["2026-05-21",77539.0,76211.0,80940.0],["2026-05-22",75488.0,76383.0,80785.0],["2026-05-23",76673.0,76578.0,80660.0],["2026-05-24",76981.0,76772.0,80526.0],["2026-05-25",77280.0,76937.0,80406.0],["2026-05-26",75826.0,77077.0,80268.0],["2026-05-27",74345.0,77125.0,80128.0],["2026-05-28",73537.0,77173.0,79972.0],["2026-05-29",73373.0,77205.0,79809.0],["2026-05-30",73755.0,77221.0,79663.0],["2026-05-31",73580.0,77231.0,79523.0],["2026-06-01",71320.0,77243.0,79381.0],["2026-06-02",66704.0,77087.0,79242.0],["2026-06-03",64014.0,76884.0,79085.0],["2026-06-04",63802.0,76664.0,78933.0],["2026-06-05",60923.0,76379.0,78777.0],["2026-06-06",60867.0,76054.0,78616.0],["2026-06-07",63240.0,75804.0,78475.0],["2026-06-08",63091.0,75589.0,78358.0],["2026-06-09",61644.0,75304.0,78240.0],["2026-06-10",61449.0,75006.0,78124.0],["2026-06-11",63561.0,74713.0,78008.0],["2026-06-12",63543.0,74419.0,77884.0],["2026-06-13",64421.0,74158.0,77770.0],["2026-06-14",65710.0,73920.0,77646.0],["2026-06-15",66290.0,73673.0,77521.0],["2026-06-16",65601.0,73437.0,77394.0],["2026-06-17",64418.0,73199.0,77262.0],["2026-06-18",62896.0,72941.0,77125.0],["2026-06-19",63541.0,72686.0,77011.0],["2026-06-20",64240.0,72407.0,76875.0],["2026-06-21",63238.0,72099.0,76724.0],["2026-06-22",63952.0,71807.0,76583.0],["2026-06-23",62668.0,71464.0,76449.0],["2026-06-24",60995.0,71065.0,76308.0],["2026-06-25",59722.0,70631.0,76154.0],["2026-06-26",60016.0,70231.0,76001.0],["2026-06-27",59940.0,69826.0,75837.0],["2026-06-28",59532.0,69404.0,75675.0],["2026-06-29",60138.0,68964.0,75513.0],["2026-06-30",58559.0,68500.0,75355.0],["2026-07-01",60004.0,68091.0,75203.0],["2026-07-02",61485.0,67735.0,75070.0],["2026-07-03",62544.0,67365.0,74950.0],["2026-07-04",63088.0,67045.0,74827.0],["2026-07-05",63548.0,66753.0,74714.0],["2026-07-06",63995.0,66485.0,74606.0],["2026-07-07",63297.0,66212.0,74482.0],["2026-07-08",62258.0,65922.0,74352.0],["2026-07-09",63193.0,65636.0,74225.0],["2026-07-10",64127.0,65368.0,74103.0],["2026-07-11",63802.0,65134.0,73985.0],["2026-07-12",63758.0,64876.0,73865.0],["2026-07-13",62239.0,64581.0,73740.0],["2026-07-14",64956.0,64335.0,73629.0],["2026-07-15",64712.0,64113.0,73513.0],["2026-07-16",63789.0,63902.0,73393.0],["2026-07-17",63899.0,63709.0,73277.0],["2026-07-18",64797.0,63537.0,73159.0],["2026-07-19",64691.0,63356.0,73045.0],["2026-07-20",65230.0,63189.0,72927.0],["2026-07-21",66505.0,63093.0,72810.0],["2026-07-22",66101.0,63081.0,72687.0],["2026-07-23",65045.0,63101.0,72556.0],["2026-07-24",64098.0,63107.0,72407.0],["2026-07-25",64312.0,63175.0,72260.0],["2026-07-26",65340.0,63264.0,72130.0],["2026-07-27",63725.0,63274.0,71993.0],["2026-07-28",63871.0,63290.0,71860.0],["2026-07-29",63908.0,63335.0,71728.0],["2026-07-30",64725.0,63401.0,71597.0],["2026-07-31",62814.0,63386.0,71455.0],["2026-08-01",62763.0,63370.0,71292.0],["2026-08-02",63482.0,63351.0,71125.0],["2026-08-03",63461.0,63306.0,70965.0],["2026-08-04",64056.0,63262.0,70807.0],["2026-08-05",64598.0,63241.0,70655.0],["2026-08-06",64262.0,63238.0,70508.0],["2026-08-07",64880.0,63278.0,70370.0],["2026-08-08",64905.0,63305.0,70253.0],["2026-08-09",64845.0,63317.0,70130.0],["2026-08-10",63911.0,63331.0,70002.0],["2026-08-11",63552.0,63323.0,69872.0],["2026-08-12",63402.0,63338.0,69744.0],["2026-08-13",63402.0,63386.0,69628.0],["2026-08-14",62976.0,63451.0,69502.0],["2026-08-15",63024.0,63511.0,69371.0],["2026-08-16",62819.0,63569.0,69239.0],["2026-08-17",64506.0,63668.0,69139.0],["2026-08-18",64681.0,63759.0,69042.0],["2026-08-19",69266.0,63973.0,68995.0],["2026-08-20",73033.0,64234.0,68975.0],["2026-08-21",78335.0,64571.0,68974.0],["2026-08-22",77083.0,64861.0,68981.0],["2026-08-23",77755.0,65155.0,69005.0],["2026-08-24",78964.0,65463.0,69086.0],["2026-08-25",78565.0,65754.0,69126.0],["2026-08-26",79027.0,66069.0,69175.0],["2026-08-27",80258.0,66429.0,69225.0],["2026-08-28",77830.0,66722.0,69263.0],["2026-08-29",78246.0,67004.0,69310.0],["2026-08-30",77668.0,67281.0,69364.0],["2026-08-31",78549.0,67577.0,69425.0],["2026-09-01",77404.0,67881.0,69468.0],["2026-09-02",77300.0,68127.0,69506.0],["2026-09-03",81272.0,68459.0,69568.0],["2026-09-04",79672.0,68776.0,69622.0],["2026-09-05",79824.0,69095.0,69684.0],["2026-09-06",80350.0,69406.0,69754.0],["2026-09-07",79116.0,69694.0,69814.0],["2026-09-08",78439.0,69958.0,69867.0],["2026-09-09",78260.0,70194.0,69918.0],["2026-09-10",76568.0,70403.0,69962.0],["2026-09-11",77174.0,70646.0,70025.0],["2026-09-12",77270.0,70909.0,70091.0],["2026-09-13",76838.0,71159.0,70136.0],["2026-09-14",78163.0,71416.0,70189.0],["2026-09-15",75613.0,71654.0,70238.0],["2026-09-16",76150.0,71899.0,70283.0],["2026-09-17",76404.0,72149.0,70337.0],["2026-09-18",80901.0,72473.0,70397.0],["2026-09-19",81234.0,72841.0,70462.0],["2026-09-20",81143.0,73209.0,70504.0],["2026-09-21",86603.0,73671.0,70583.0],["2026-09-22",86172.0,74125.0,70673.0],["2026-09-23",84383.0,74532.0,70759.0],["2026-09-24",84379.0,74928.0,70851.0],["2026-09-25",84035.0,75323.0,70929.0],["2026-09-26",84406.0,75713.0,71001.0],["2026-09-27",84458.0,76105.0,71073.0],["2026-09-28",83503.0,76478.0,71138.0],["2026-09-29",83622.0,76872.0,71201.0],["2026-09-30",83554.0,77272.0,71263.0],["2026-10-01",84853.0,77701.0,71323.0],["2026-10-02",84497.0,78123.0,71371.0],["2026-10-03",84764.0,78559.0,71425.0],["2026-10-04",86480.0,79028.0,71502.0],["2026-10-05",85787.0,79487.0,71581.0],["2026-10-06",85558.0,79908.0,71656.0],["2026-10-07",83276.0,80280.0,71729.0],["2026-10-08",81676.0,80528.0,71798.0],["2026-10-09",82546.0,80719.0,71856.0],["2026-10-10",82912.0,80810.0,71918.0],["2026-10-11",83679.0,80942.0,71980.0],["2026-10-12",81763.0,81022.0,72045.0],["2026-10-13",83095.0,81105.0,72129.0],["2026-10-14",81562.0,81165.0,72205.0],["2026-10-15",82141.0,81227.0,72286.0],["2026-10-16",81501.0,81252.0,72360.0],["2026-10-17",81382.0,81323.0,72426.0],["2026-10-18",82018.0,81398.0,72495.0],["2026-10-19",81854.0,81482.0,72570.0],["2026-10-20",82941.0,81570.0,72650.0],["2026-10-21",84012.0,81702.0,72734.0],["2026-10-22",81312.0,81782.0,72796.0],["2026-10-23",81399.0,81785.0,72858.0]],"XLE":[["2026-04-23",56.24,56.3,0.0],["2026-04-24",56.13,56.34,0.0],["2026-04-27",56.03,56.41,0.0],["2026-04-28",56.96,56.48,0.0],["2026-04-29",58.26,56.59,0.0],["2026-04-30",58.87,56.69,0.0],["2026-05-01",58.08,56.77,0.0],["2026-05-04",58.62,56.87,0.0],["2026-05-05",58.68,56.96,0.0],["2026-05-06",56.26,57.01,0.0],["2026-05-07",55.22,57.03,0.0],["2026-05-08",54.97,57.05,0.0],["2026-05-11",56.43,57.09,0.0],["2026-05-12",56.82,57.1,0.0],["2026-05-13",56.88,57.13,0.0],["2026-05-14",57.31,57.18,0.0],["2026-05-15",58.67,57.24,0.0],["2026-05-18",59.79,57.33,0.0],["2026-05-19",60.49,57.43,0.0],["2026-05-20",59.02,57.52,0.0],["2026-05-21",58.36,57.57,0.0],["2026-05-22",58.72,57.62,0.0],["2026-05-26",57.1,57.63,0.0],["2026-05-27",56.25,57.62,0.0],["2026-05-28",56.21,57.6,0.0],["2026-05-29",55.56,57.56,0.0],["2026-06-01",56.55,57.53,0.0],["2026-06-02",57.2,57.51,0.0],["2026-06-03",57.95,57.49,0.0],["2026-06-04",57.98,57.45,0.0],["2026-06-05",56.92,57.39,0.0],["2026-06-08",57.57,57.33,0.0],["2026-06-09",56.64,57.23,0.0],["2026-06-10",57.49,57.16,0.0],["2026-06-11",56.38,57.07,0.0],["2026-06-12",56.8,57.05,0.0],["2026-06-15",54.83,56.97,0.0],["2026-06-16",54.64,56.89,0.0],["2026-06-17",53.96,56.78,49.82],["2026-06-18",53.07,56.69,49.87],["2026-06-22",53.74,56.64,49.92],["2026-06-23",54.14,56.6,49.98],["2026-06-24",53.25,56.53,50.04],["2026-06-25",53.77,56.51,50.09],["2026-06-26",53.52,56.48,50.15],["2026-06-29",53.26,56.42,50.2],["2026-06-30",52.8,56.39,50.25],["2026-07-01",52.5,56.36,50.3],["2026-07-02",52.91,56.31,50.35],["2026-07-06",52.82,56.25,50.4],["2026-07-07",54.32,56.21,50.46],["2026-07-08",55.27,56.2,50.52],["2026-07-09",54.5,56.17,50.57],["2026-07-10",54.75,56.12,50.63],["2026-07-13",56.4,56.08,50.7],["2026-07-14",56.61,56.04,50.76],["2026-07-15",56.17,56.0,50.82],["2026-07-16",56.68,55.96,50.88],["2026-07-17",57.34,55.94,50.95],["2026-07-20",57.6,55.96,51.02],["2026-07-21",58.15,56.02,51.09],["2026-07-22",58.85,56.1,51.17],["2026-07-23",59.03,56.15,51.25],["2026-07-24",59.27,56.2,51.33],["2026-07-27",58.02,56.22,51.4],["2026-07-28",57.23,56.22,51.47],["2026-07-29",58.3,56.21,51.55],["2026-07-30",58.61,56.19,51.64],["2026-07-31",59.2,56.16,51.72],["2026-08-03",58.44,56.15,51.81],["2026-08-04",58.17,56.15,51.89],["2026-08-05",56.97,56.11,51.97],["2026-08-06",57.82,56.13,52.05],["2026-08-07",57.16,56.15,52.12],["2026-08-10",59.82,56.22,52.21],["2026-08-11",60.57,56.32,52.3],["2026-08-12",60.67,56.4,52.38],["2026-08-13",60.7,56.47,52.47],["2026-08-14",61.54,56.54,52.57],["2026-08-17",62.21,56.63,52.67],["2026-08-18",63.3,56.76,52.77],["2026-08-19",63.2,56.87,52.87],["2026-08-20",63.37,57.0,52.97],["2026-08-21",63.26,57.12,53.08],["2026-08-24",62.74,57.25,53.18],["2026-08-25",61.69,57.34,53.27],["2026-08-26",62.06,57.49,53.37],["2026-08-27",61.92,57.63,53.46],["2026-08-28",62.31,57.8,53.55],["2026-08-31",63.58,58.01,53.65],["2026-09-01",64.39,58.22,53.75],["2026-09-02",64.72,58.44,53.86],["2026-09-03",64.24,58.65,53.95],["2026-09-04",63.68,58.85,54.05],["2026-09-08",64.39,59.07,54.15],["2026-09-09",64.92,59.3,54.26],["2026-09-10",64.55,59.54,54.37],["2026-09-11",64.76,59.78,54.47],["2026-09-14",64.15,60.01,54.58],["2026-09-15",65.54,60.26,54.69],["2026-09-16",63.65,60.45,54.79],["2026-09-17",64.1,60.63,54.89],["2026-09-18",63.93,60.82,54.99],["2026-09-21",62.46,60.97,55.08],["2026-09-22",61.78,61.08,55.17],["2026-09-23",62.37,61.19,55.25],["2026-09-24",62.6,61.32,55.34],["2026-09-25",62.04,61.43,55.43],["2026-09-28",62.1,61.52,55.52],["2026-09-29",61.54,61.6,55.61],["2026-09-30",61.5,61.67,55.69],["2026-10-01",62.7,61.75,55.78],["2026-10-02",62.82,61.82,55.88],["2026-10-05",63.45,61.91,55.98],["2026-10-06",63.75,62.02,56.08],["2026-10-07",63.36,62.14,56.18],["2026-10-08",65.24,62.28,56.3],["2026-10-09",65.08,62.41,56.4],["2026-10-12",66.01,62.55,56.52],["2026-10-13",67.2,62.72,56.63],["2026-10-14",67.63,62.91,56.76],["2026-10-15",66.56,63.1,56.87],["2026-10-16",68.24,63.31,56.99],["2026-10-19",67.8,63.52,57.11],["2026-10-20",67.97,63.69,57.23],["2026-10-21",68.16,63.84,57.34],["2026-10-22",67.57,63.98,57.45],["2026-10-23",68.96,64.14,57.57]],"XLV":[["2026-04-23",145.04,149.32,0.0],["2026-04-24",143.0,149.09,0.0],["2026-04-27",142.29,148.86,0.0],["2026-04-28",142.66,148.59,0.0],["2026-04-29",141.67,148.32,0.0],["2026-04-30",144.79,148.1,0.0],["2026-05-01",143.97,147.87,0.0],["2026-05-04",143.55,147.65,0.0],["2026-05-05",144.11,147.4,0.0],["2026-05-06",144.21,147.16,0.0],["2026-05-07",143.54,146.91,0.0],["2026-05-08",142.32,146.65,0.0],["2026-05-11",141.87,146.32,0.0],["2026-05-12",144.66,146.08,0.0],["2026-05-13",145.51,145.9,0.0],["2026-05-14",145.43,145.7,0.0],["2026-05-15",143.91,145.54,0.0],["2026-05-18",144.53,145.42,0.0],["2026-05-19",146.11,145.29,0.0],["2026-05-20",145.93,145.18,0.0],["2026-05-21",146.94,145.1,0.0],["2026-05-22",148.66,145.11,0.0],["2026-05-26",147.29,145.1,0.0],["2026-05-27",147.57,145.07,0.0],["2026-05-28",149.64,145.1,0.0],["2026-05-29",148.25,145.16,0.0],["2026-06-01",146.63,145.2,0.0],["2026-06-02",145.2,145.23,0.0],["2026-06-03",146.34,145.28,0.0],["2026-06-04",150.83,145.43,0.0],["2026-06-05",151.76,145.56,0.0],["2026-06-08",151.4,145.7,0.0],["2026-06-09",153.3,145.92,0.0],["2026-06-10",151.6,146.1,0.0],["2026-06-11",152.83,146.25,0.0],["2026-06-12",152.55,146.37,0.0],["2026-06-15",151.64,146.49,0.0],["2026-06-16",151.69,146.63,0.0],["2026-06-17",149.48,146.71,147.37],["2026-06-18",148.18,146.7,147.44],["2026-06-22",149.49,146.73,147.52],["2026-06-23",151.6,146.84,147.6],["2026-06-24",152.77,146.96,147.69],["2026-06-25",155.04,147.11,147.79],["2026-06-26",159.73,147.37,147.91],["2026-06-29",160.13,147.67,148.04],["2026-06-30",158.06,147.88,148.14],["2026-07-01",158.93,148.13,148.26],["2026-07-02",163.12,148.5,148.41],["2026-07-06",161.34,148.82,148.54],["2026-07-07",163.81,149.2,148.69],["2026-07-08",161.68,149.57,148.83],["2026-07-09",161.55,149.96,148.96],["2026-07-10",160.23,150.31,149.09],["2026-07-13",160.79,150.69,149.22],["2026-07-14",157.69,150.95,149.34],["2026-07-15",157.69,151.22,149.47],["2026-07-16",161.18,151.57,149.61],["2026-07-17",160.48,151.9,149.74],["2026-07-20",158.64,152.19,149.85],["2026-07-21",159.64,152.51,149.94],["2026-07-22",158.82,152.84,150.03],["2026-07-23",160.82,153.22,150.13],["2026-07-24",161.95,153.57,150.23],["2026-07-27",162.78,153.91,150.33],["2026-07-28",166.62,154.34,150.45],["2026-07-29",165.61,154.77,150.57],["2026-07-30",162.9,155.14,150.69],["2026-07-31",161.93,155.45,150.8],["2026-08-03",161.62,155.77,150.91],["2026-08-04",161.48,156.06,151.01],["2026-08-05",163.53,156.36,151.13],["2026-08-06",163.82,156.69,151.25],["2026-08-07",165.05,157.04,151.36],["2026-08-10",167.8,157.4,151.49],["2026-08-11",167.37,157.78,151.6],["2026-08-12",167.8,158.21,151.73],["2026-08-13",167.74,158.66,151.85],["2026-08-14",166.73,159.06,151.96],["2026-08-17",166.41,159.38,152.08],["2026-08-18",169.08,159.72,152.21],["2026-08-19",175.01,160.19,152.38],["2026-08-20",171.73,160.56,152.53],["2026-08-21",173.95,161.01,152.69],["2026-08-24",174.03,161.43,152.84],["2026-08-25",174.62,161.88,153.0],["2026-08-26",172.88,162.3,153.15],["2026-08-27",170.93,162.69,153.28],["2026-08-28",170.51,163.11,153.41],["2026-08-31",169.89,163.54,153.52],["2026-09-01",171.02,163.97,153.62],["2026-09-02",172.29,164.38,153.73],["2026-09-03",172.6,164.78,153.85],["2026-09-04",170.8,165.1,153.96],["2026-09-08",166.49,165.23,154.04],["2026-09-09",165.94,165.35,154.12],["2026-09-10",165.03,165.49,154.2],["2026-09-11",164.73,165.6,154.27],["2026-09-14",167.11,165.68,154.34],["2026-09-15",167.02,165.8,154.39],["2026-09-16",167.13,165.86,154.45],["2026-09-17",168.17,165.99,154.51],["2026-09-18",167.75,166.12,154.59],["2026-09-21",169.01,166.29,154.67],["2026-09-22",169.89,166.47,154.76],["2026-09-23",168.8,166.7,154.85],["2026-09-24",169.87,166.94,154.94],["2026-09-25",170.7,167.13,155.05],["2026-09-28",171.26,167.35,155.17],["2026-09-29",170.73,167.59,155.28],["2026-09-30",168.42,167.76,155.36],["2026-10-01",166.2,167.91,155.44],["2026-10-02",166.18,168.02,155.5],["2026-10-05",167.37,168.13,155.58],["2026-10-06",167.09,168.21,155.66],["2026-10-07",168.81,168.26,155.75],["2026-10-08",168.16,168.31,155.82],["2026-10-09",170.81,168.47,155.91],["2026-10-12",171.99,168.67,156.01],["2026-10-13",169.66,168.83,156.09],["2026-10-14",173.96,169.08,156.18],["2026-10-15",177.19,169.35,156.3],["2026-10-16",176.71,169.61,156.42],["2026-10-19",175.65,169.82,156.53],["2026-10-20",179.82,170.06,156.66],["2026-10-21",178.94,170.29,156.79],["2026-10-22",181.3,170.56,156.92],["2026-10-23",179.07,170.79,157.02]]}}</script>
 <script>
 (function () {
-  var DATA = JSON.parse(document.getElementById("prices").textContent);
+  var DATA = JSON.parse(document.getElementById("account-data").textContent);
   var NS = "http://www.w3.org/2000/svg";
-  var W = 860, H = 250, M = { t: 14, r: 92, b: 28, l: 70 };
   var MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-  var SERIES = [
-    { i: 1, name: "Close", label: "Price", color: "var(--s-price)", dash: null },
-    { i: 2, name: "50-day", label: "50-day", color: "var(--s-50)", dash: null },
-    { i: 3, name: "200-day", label: "200-day", color: "var(--s-200)", dash: "5 3" }
-  ];
 
   function el(tag, attrs, parent) {
     var n = document.createElementNS(NS, tag);
@@ -432,34 +434,35 @@ footer { border-top: 1px solid var(--rule); padding-top: 18px; display: flex; fl
     var err = span / count / step;
     step *= err >= 7.5 ? 10 : err >= 3.5 ? 5 : err >= 1.5 ? 2 : 1;
     var ticks = [];
-    for (var v = Math.ceil(lo / step) * step; v <= hi + 1e-9; v += step) ticks.push(v);
+    for (var v = Math.ceil(lo / step) * step; v <= hi + 1e-9; v += step) ticks.push(+v.toFixed(6));
     return ticks;
   }
-  function money(v) {
-    return "$" + v.toLocaleString("en-US", { minimumFractionDigits: v < 1000 ? 2 : 0, maximumFractionDigits: v < 1000 ? 2 : 0 });
+  function money(v, cents) {
+    var c = cents === undefined ? v < 1000 : cents;
+    return "$" + v.toLocaleString("en-US", { minimumFractionDigits: c ? 2 : 0, maximumFractionDigits: c ? 2 : 0 });
   }
   function axisMoney(v) {
-    return v >= 1000 ? "$" + (v / 1000).toLocaleString("en-US") + "k" : "$" + v;
+    if (v >= 20000) return "$" + (v / 1000).toLocaleString("en-US") + "k";
+    return "$" + v.toLocaleString("en-US");
   }
-  function fmtDate(d) {
+  function fmtDate(d, year) {
     var p = d.split("-");
-    return +p[2] + " " + MONTHS[+p[1] - 1] + " " + p[0];
+    return +p[2] + " " + MONTHS[+p[1] - 1] + (year ? " " + p[0] : "");
   }
 
-  document.querySelectorAll(".chart").forEach(function (box) {
-    var rows = DATA[box.dataset.sym];
+  // Shared line-chart renderer: rows = [[date, v1, v2, ...]], series = [{i, name, label, color, dash}]
+  function lineChart(box, rows, series, opts) {
     var card = box.parentNode, tip = card.querySelector(".tip");
+    var W = 860, H = opts.height, M = { t: 18, r: opts.right, b: 28, l: 74 };
     var vals = [];
-    rows.forEach(function (r) { vals.push(r[1], r[2], r[3]); });
-    var lo = Math.min.apply(null, vals), hi = Math.max.apply(null, vals), pad = (hi - lo) * 0.06;
+    rows.forEach(function (r) { series.forEach(function (s) { vals.push(r[s.i]); }); });
+    var lo = Math.min.apply(null, vals), hi = Math.max.apply(null, vals), pad = (hi - lo) * 0.08 || 1;
     var ticks = niceTicks(lo - pad, hi + pad, 4);
     var y0 = Math.min(ticks[0], lo - pad), y1 = Math.max(ticks[ticks.length - 1], hi + pad);
     var n = rows.length;
     var x = function (i) { return M.l + (i / (n - 1)) * (W - M.l - M.r); };
     var y = function (v) { return M.t + (1 - (v - y0) / (y1 - y0)) * (H - M.t - M.b); };
-
-    var svg = el("svg", { viewBox: "0 0 " + W + " " + H, role: "img",
-      "aria-label": box.dataset.sym + " daily close with 50- and 200-day averages, 10 Apr to 10 Oct 2026" }, box);
+    var svg = el("svg", { viewBox: "0 0 " + W + " " + H, role: "img", "aria-label": opts.aria }, box);
 
     ticks.forEach(function (t) {
       if (t < y0 || t > y1) return;
@@ -467,38 +470,46 @@ footer { border-top: 1px solid var(--rule); padding-top: 18px; display: flex; fl
       el("text", { x: M.l - 10, y: y(t) + 4, "text-anchor": "end" }, svg).textContent = axisMoney(t);
     });
     rows.forEach(function (r, i) {
-      if (r[0].slice(8) === "01") {
+      if (opts.xEvery ? true : r[0].slice(8) === "01") {
         el("line", { x1: x(i), x2: x(i), y1: H - M.b, y2: H - M.b + 5, stroke: "var(--rule)" }, svg);
-        el("text", { x: x(i), y: H - 8, "text-anchor": "middle" }, svg).textContent = MONTHS[+r[0].slice(5, 7) - 1];
+        el("text", { x: x(i), y: H - 8, "text-anchor": "middle" }, svg).textContent =
+          opts.xEvery ? fmtDate(r[0]) : MONTHS[+r[0].slice(5, 7) - 1];
       }
     });
     el("line", { x1: M.l, x2: W - M.r, y1: H - M.b, y2: H - M.b, stroke: "var(--rule)" }, svg);
 
-    // Draw averages first so the price line sits on top.
-    SERIES.slice().reverse().forEach(function (s) {
+    series.slice().reverse().forEach(function (s) {
       var d = rows.map(function (r, i) { return (i ? "L" : "M") + x(i).toFixed(1) + "," + y(r[s.i]).toFixed(1); }).join("");
       var a = { d: d, fill: "none", stroke: s.color, "stroke-width": 2, "stroke-linejoin": "round", "stroke-linecap": "round" };
       if (s.dash) a["stroke-dasharray"] = s.dash;
       el("path", a, svg);
     });
+    if (opts.points) {
+      series.forEach(function (s) {
+        rows.forEach(function (r, i) {
+          el("circle", { cx: x(i), cy: y(r[s.i]), r: 4, fill: s.color, stroke: "var(--sheet)", "stroke-width": 2 }, svg);
+        });
+      });
+    }
 
-    // Direct labels at the right edge, nudged apart so they never collide.
     var last = rows[n - 1];
-    var labels = SERIES.map(function (s) { return { s: s, y: y(last[s.i]) }; }).sort(function (a, b) { return a.y - b.y; });
+    var labels = series.map(function (s) { return { s: s, y: y(last[s.i]) }; }).sort(function (a, b) { return a.y - b.y; });
     for (var k = 1; k < labels.length; k++) if (labels[k].y - labels[k - 1].y < 15) labels[k].y = labels[k - 1].y + 15;
     labels.forEach(function (l) {
       el("text", { x: W - M.r + 12, y: l.y + 4, class: "dl" }, svg).textContent = l.s.label;
     });
 
-    if (box.dataset.buy) {
-      var bx = x(n - 1), by = y(last[1]);
-      el("circle", { cx: bx, cy: by, r: 6, fill: "var(--s-price)", stroke: "var(--sheet)", "stroke-width": 2 }, svg);
-      el("text", { x: bx - 12, y: by - 14, "text-anchor": "end", class: "buy" }, svg).textContent = "Bought $1,000";
+    if (opts.buyDate) {
+      var bi = rows.findIndex(function (r) { return r[0] >= opts.buyDate; });
+      if (bi >= 0) {
+        var bx = x(bi), by = y(rows[bi][1]);
+        el("circle", { cx: bx, cy: by, r: 6, fill: "var(--s-price)", stroke: "var(--sheet)", "stroke-width": 2 }, svg);
+        el("text", { x: bx - 12, y: by - 14, "text-anchor": "end", class: "buy" }, svg).textContent = "Bought " + opts.buyAmt;
+      }
     }
 
-    // Hover: crosshair + tooltip
     var cross = el("line", { y1: M.t, y2: H - M.b, stroke: "var(--muted)", "stroke-width": 1, "stroke-dasharray": "3 3", visibility: "hidden" }, svg);
-    var dots = SERIES.map(function (s) {
+    var dots = series.map(function (s) {
       return el("circle", { r: 4, fill: s.color, stroke: "var(--sheet)", "stroke-width": 2, visibility: "hidden" }, svg);
     });
     var hit = el("rect", { x: M.l, y: M.t, width: W - M.l - M.r, height: H - M.t - M.b, fill: "transparent" }, svg);
@@ -510,15 +521,15 @@ footer { border-top: 1px solid var(--rule); padding-top: 18px; display: flex; fl
     function show(evt) {
       var pt = svg.createSVGPoint(); pt.x = evt.clientX; pt.y = evt.clientY;
       var loc = pt.matrixTransform(svg.getScreenCTM().inverse());
-      var i = Math.round((loc.x - M.l) / (W - M.l - M.r) * (n - 1));
-      i = Math.max(0, Math.min(n - 1, i));
+      var i = Math.max(0, Math.min(n - 1, Math.round((loc.x - M.l) / (W - M.l - M.r) * (n - 1))));
       var r = rows[i], cx = x(i);
       cross.setAttribute("x1", cx); cross.setAttribute("x2", cx); cross.setAttribute("visibility", "visible");
-      SERIES.forEach(function (s, k) {
+      series.forEach(function (s, k) {
         dots[k].setAttribute("cx", cx); dots[k].setAttribute("cy", y(r[s.i])); dots[k].setAttribute("visibility", "visible");
       });
-      tip.innerHTML = '<div class="d">' + fmtDate(r[0]) + "</div>" + SERIES.map(function (s) {
-        return '<div><span class="k" style="background:' + s.color + '"></span>' + s.name + " " + money(r[s.i]) + "</div>";
+      var head = fmtDate(r[0], true) + (opts.liveLast && i === n - 1 ? " (live)" : "");
+      tip.innerHTML = '<div class="d">' + head + "</div>" + series.map(function (s) {
+        return '<div><span class="k" style="background:' + s.color + '"></span>' + s.name + " " + money(r[s.i], opts.cents) + "</div>";
       }).join("");
       tip.style.display = "block";
       var cardBox = card.getBoundingClientRect();
@@ -530,6 +541,21 @@ footer { border-top: 1px solid var(--rule); padding-top: 18px; display: flex; fl
     hit.addEventListener("pointermove", show);
     hit.addEventListener("pointerdown", show);
     hit.addEventListener("pointerleave", hide);
+  }
+
+  lineChart(document.getElementById("equity"), DATA.equity, [
+    { i: 1, name: "AI trader", label: "AI trader", color: "var(--s-price)" },
+    { i: 2, name: "All in SPY", label: "All in SPY", color: "var(--s-50)", dash: "5 3" }
+  ], { height: 280, right: 104, xEvery: true, points: true, liveLast: true, cents: true,
+       aria: "Account value against the same $10,000 held entirely in SPY, 14 to 23 October 2026" });
+
+  document.querySelectorAll(".chart[data-sym]").forEach(function (box) {
+    lineChart(box, DATA.charts[box.dataset.sym], [
+      { i: 1, name: "Close", label: "Price", color: "var(--s-price)" },
+      { i: 2, name: "50-day", label: "50-day", color: "var(--s-50)" },
+      { i: 3, name: "200-day", label: "200-day", color: "var(--s-200)", dash: "5 3" }
+    ], { height: 240, right: 92, buyDate: box.dataset.buy, buyAmt: box.dataset.amt,
+         aria: box.dataset.sym + " daily close with 50- and 200-day averages over six months" });
   });
 })();
 </script>

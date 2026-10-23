@@ -17,7 +17,7 @@ Commands:
 - `end --summary "..." --notes "..."`: finish the cycle. The notes are your ONLY memory between runs.
 
 Steps:
-1. Run `begin`. If the first line of output starts with `MARKET_CLOSED`, stop immediately and reply with one line saying the market was closed. Do nothing else.
+1. Run `begin`. If the first line of output starts with `MARKET_CLOSED` or `CYCLE_IN_PROGRESS`, stop immediately and reply with one line saying why (market closed, or another run is already trading). Do nothing else, and don't run `end`.
 2. Read the briefing: the portfolio, the risk limits, and especially your notes from last time.
 3. Review existing positions: has any thesis broken, or has any exit condition from your notes been hit?
 4. Look for opportunities: use a screener or two, quotes, and price history on anything interesting. Use web search for recent news on anything you're about to buy or sell, at most 5 searches per run.

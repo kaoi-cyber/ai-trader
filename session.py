@@ -1,8 +1,10 @@
 """State, logging and the start/finish of a trading cycle, shared by agent.py (API mode)
 and trade.py (Claude Code mode)."""
 
+import fcntl
 import json
 import os
+import time
 from datetime import datetime
 from zoneinfo import ZoneInfo
 
@@ -16,6 +18,29 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 
 def _path(p: str) -> str:
     return p if os.path.isabs(p) else os.path.join(HERE, p)
+
+
+def lock_state(s: Settings):
+    """Hold an exclusive lock on the state file until the process exits. Two runs at once
+    (e.g. scheduled tasks catching up after the app was closed) would otherwise each load the
+    state, trade, and the last one to save would erase the other's trades."""
+    lock = open(_path(s.state_file) + ".lock", "w")
+    fcntl.flock(lock, fcntl.LOCK_EX)
+    return lock
+
+
+CYCLE_STALE_MINUTES = 45
+
+
+def claim_cycle(state: dict) -> bool:
+    """Mark a cycle as running. Returns False if another cycle started recently and hasn't
+    ended, so two scheduled runs that overlap don't both trade. A cycle that never calls
+    `end` (crashed or abandoned) stops blocking after CYCLE_STALE_MINUTES."""
+    started = state.get("cycle_started_ts")
+    if started and time.time() - started < CYCLE_STALE_MINUTES * 60:
+        return False
+    state["cycle_started_ts"] = time.time()
+    return True
 
 
 def load_state(s: Settings) -> dict:
@@ -84,6 +109,7 @@ def start_cycle(s: Settings, broker: PaperBroker, state: dict) -> dict:
 def finish_cycle(s: Settings, broker: PaperBroker, state: dict, log, summary: str, notes: str) -> dict:
     if notes:
         state["notes"] = notes
+    state.pop("cycle_started_ts", None)
     after = broker.snapshot()
     log({"type": "cycle", "summary": summary, "notes": notes,
          "total_value_usd": after["total_value_usd"], "cash_usd": after["cash_usd"]})

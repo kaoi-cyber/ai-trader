@@ -14,7 +14,9 @@ instead of the paid API. Every order still goes through the same hard risk limit
 import argparse
 import json
 import sys
+from datetime import datetime
 
+import data
 import session
 import tools
 from broker import PaperBroker
@@ -54,16 +56,21 @@ def main() -> None:
 
     args = p.parse_args()
     s = load_settings()
+    lock = session.lock_state(s)  # noqa: F841 (held until exit)
     state = session.load_state(s)
     broker = PaperBroker(state, s.start_cash, s.slippage_bps)
     log = session.make_logger(s)
     t = {f.__name__: f for f in tools.build_tools(broker, state, s, log)}
 
     if args.cmd == "begin":
-        briefing = session.start_cycle(s, broker, state)
-        if s.only_when_us_market_open and not briefing["us_market_open"]:
+        if s.only_when_us_market_open and not data.us_market_open():
             print("MARKET_CLOSED: the US market is not open. End this run without trading.")
-        print(json.dumps(briefing, indent=2))
+        elif not session.claim_cycle(state):
+            started = datetime.fromtimestamp(state["cycle_started_ts"], session.NY)
+            print(f"CYCLE_IN_PROGRESS: another trading run started at {started:%H:%M} New York time "
+                  "and hasn't finished. End this run without trading.")
+        else:
+            print(json.dumps(session.start_cycle(s, broker, state), indent=2))
     elif args.cmd == "portfolio":
         print(t["get_portfolio"]())
     elif args.cmd == "status":
